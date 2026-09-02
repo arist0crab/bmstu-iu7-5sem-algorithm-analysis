@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <random>
-#include <chrono>
 #include <algorithm>
 
 #include "io.hpp"
