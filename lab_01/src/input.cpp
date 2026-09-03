@@ -2,7 +2,7 @@
 
 
 std::expected<int, ParseError> userInputN();
-std::expected<int, ParseError> userInputX(int spanStart, int spanEnd);
+std::expected<int, ParseError> userInputX(const std::pair<int, int> &generationSpan);
 std::expected<size_t, ParseError> userInputMenuOption(size_t menuOptionsQuantity);
 std::expected<size_t, ParseError> userInputSpanStartInput();
 std::expected<size_t, ParseError> userInputSpanEndInput();
@@ -10,16 +10,16 @@ std::expected<size_t, ParseError> userInputSpanEndInput();
 std::expected<size_t, ParseError> sizeInput();
 std::expected<int, ParseError> intInput();
 
-void inputXInvitation(int spanStart, int spanEnd);
 void inputNInvitation();
-void inputMenuOptionInvitation();
-void inputSpanStartInvatation();
 void inputSpanEndInvatation();
+void inputSpanStartInvatation();
+void inputMenuOptionInvitation();
+void inputXInvitation(const std::pair<int, int> &generationSpan);
 
 void handleParseError(ParseError error);
 
 
-size_t UserInputNForce()
+void UserInputNForce(size_t &N)
 {
     auto n = userInputN();
     while (!n.has_value())
@@ -28,24 +28,24 @@ size_t UserInputNForce()
         n = userInputN();
     }
     
-    return n.value();
+    N = n.value();
 }
 
 
-int UserInputXForce(int spanStart, int spanEnd)
+void UserInputXForce(int &X, const std::pair<int, int> &generationSpan)
 {
-    auto x = userInputX(spanStart, spanEnd);
+    auto x = userInputX(generationSpan);
     while (!x.has_value())
     {
         handleParseError(x.error());
-        x = userInputX(spanStart, spanEnd);
+        x = userInputX(generationSpan);
     }
     
-    return x.value();
+    X = x.value();
 }
 
 
-size_t UserInputMenuOptionForce(size_t menuOptionsQuantity)
+void UserInputMenuOptionForce(const size_t menuOptionsQuantity, size_t &result)
 {
     auto opt = userInputMenuOption(menuOptionsQuantity);
     while (!opt.has_value())
@@ -54,7 +54,7 @@ size_t UserInputMenuOptionForce(size_t menuOptionsQuantity)
         opt = userInputMenuOption(menuOptionsQuantity);
     }
     
-    return opt.value();
+    result = opt.value();
 }
 
 int UserInputSpanStartInputForce()
@@ -81,7 +81,7 @@ int UserInputSpanEndInputForce()
     return span.value();
 }
 
-std::pair<int, int> UserInputDiapasonForce()
+void UserInputDiapasonForce(std::pair<int, int> &generationSpan)
 {
     int spanStart = 0;
     int spanEnd = 0;
@@ -93,20 +93,20 @@ std::pair<int, int> UserInputDiapasonForce()
         // TODO обработать случай, когда spanStart >= spanEnd            
     }
 
-    return std::pair<int, int>(spanStart, spanEnd);
+    generationSpan = std::pair<int, int>(spanStart, spanEnd);
 }
 
 
-std::expected<int, ParseError> userInputX(int spanStart, int spanEnd)
+std::expected<int, ParseError> userInputX(const std::pair<int, int> &generationSpan)
 {
-    inputXInvitation(spanStart, spanEnd);
+    inputXInvitation(generationSpan);
 
     auto userInput = intInput();
 
     if (!userInput.has_value())
         return std::unexpected(userInput.error());
 
-    if (userInput.value() < spanStart || userInput.value() > spanEnd)
+    if (userInput.value() < generationSpan.first || userInput.value() > generationSpan.second)
         return std::unexpected(ParseError::InvalidInputDiapason);
 
     return userInput.value();
@@ -190,9 +190,9 @@ std::expected<int, ParseError> intInput()
 }
 
 
-void inputXInvitation(int spanStart, int spanEnd)
+void inputXInvitation(const std::pair<int, int> &generationSpan)
 {
-    std::cout << "Введите значение `X` от " << spanStart << " до " << spanEnd << " включительно: ";
+    std::cout << "Введите значение `X` от " << generationSpan.first << " до " << generationSpan.second << " включительно: ";
 }
 
 

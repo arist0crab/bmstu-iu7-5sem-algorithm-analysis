@@ -7,9 +7,7 @@
 #include "colors.hpp"
 
 
-size_t UserInputNForce();
-int UserInputXForce(int spanStart, int spanEnd);
-size_t UserInputMenuOptionForce(size_t menuOptionsQuantity);
-int UserInputSpanStartInputForce();
-int UserInputSpanEndInputForce();
-std::pair<int, int> UserInputDiapasonForce();
+void UserInputMenuOptionForce(const size_t menuOptionsQuantity, size_t &result);
+void UserInputXForce(int &X, const std::pair<int, int> &generationSpan);
+void UserInputDiapasonForce(std::pair<int, int> &generationSpan);
+void UserInputNForce(size_t &N);

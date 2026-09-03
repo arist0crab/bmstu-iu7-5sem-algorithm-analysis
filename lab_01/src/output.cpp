@@ -2,7 +2,7 @@
 
 
 
-void PrintMainMenu(const int *arr, const size_t arrSize, const int x, const int generationSpanStart, const int generationSpanEnd)
+void PrintMainMenu(const int *arr, const size_t arrSize, const int x, const std::pair<int, int> &generationSpan)
 {
     std::cout << 
     "+=====================================================+" << std::endl <<
@@ -28,7 +28,7 @@ void PrintMainMenu(const int *arr, const size_t arrSize, const int x, const int 
     std::cout << "‖ Искомое число `X`: " << std::setw(32) << std::right << oss.str() << " ‖" << std::endl;
     
     oss.str("");
-    oss << "[" << generationSpanStart << ", " << generationSpanEnd << "]";
+    oss << "[" << generationSpan.first << ", " << generationSpan.second << "]";
     std::cout << "‖ Диапазон значений: " << std::setw(32) << std::right << oss.str() << " ‖" << std::endl;
     
     std::cout << "+=====================================================+\n" << std::endl;
@@ -64,4 +64,24 @@ void PrintDataInputMenu()
     "‖ 3. Ввести диапазон значений массива                 ‖" << std::endl <<
     "‖ 0. Назад                                            ‖" << std::endl <<
     "+=====================================================+" << std::endl;
+}
+
+void PrintLinearBaseSearchResult(size_t index)
+{
+    std::cout << "Индекс, найденный линейным алгоритмом: " << index << std::endl;
+}
+
+void PrintBinBaseSearchResult(size_t index)
+{
+    std::cout << "Индекс, найденный бинарным алгоритмом: " << index << std::endl;
+}
+
+void PrintBinImprovedSearchResult(size_t index)
+{
+    std::cout << "Индекс, найденный модифицированным бинарным алгоритмом: " << index << std::endl; 
+}
+
+void PrintBinRecursionSearchResult(size_t index)
+{
+    std::cout << "Индекс, найденный рекурсивным бинарным алгоритмом: " << index << std::endl; 
 }
