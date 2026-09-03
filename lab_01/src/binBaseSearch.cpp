@@ -4,7 +4,7 @@
 ssize_t BinBaseSearch(const int *arr, const size_t arrSize, const int elem)
 {
     size_t dummy;
-    return BinBaseSearch(arr, elem, dummy);
+    return BinBaseSearch(arr, arrSize, elem, dummy);
 }
 
 

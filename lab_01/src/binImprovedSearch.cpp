@@ -4,7 +4,7 @@
 ssize_t BinImprovedSearch(const int *arr, const size_t arrSize, const int elem)
 {
     size_t dummy;
-    return BinImprovedSearch(arr, arrSize, dummy);
+    return BinImprovedSearch(arr, arrSize, elem, dummy);
 }
 
 
