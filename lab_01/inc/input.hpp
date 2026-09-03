@@ -9,7 +9,7 @@
 
 size_t UserInputNForce();
 int UserInputXForce(int spanStart, int spanEnd);
-size_t UserInputMenuOptionForce();
+size_t UserInputMenuOptionForce(size_t menuOptionsQuantity);
 int UserInputSpanStartInputForce();
 int UserInputSpanEndInputForce();
 std::pair<int, int> UserInputDiapasonForce();

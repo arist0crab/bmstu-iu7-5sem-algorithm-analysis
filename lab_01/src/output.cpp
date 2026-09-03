@@ -21,15 +21,15 @@ void PrintMainMenu(const int *arr, const size_t arrSize, const int x, const int 
 
     std::ostringstream oss;
     oss << arrSize;
-    std::cout << "‖ Размер массива `N`: " << std::setw(34) << std::right << oss.str() << " ‖" << std::endl;
+    std::cout << "‖ Размер массива `N`: " << std::setw(31) << std::right << oss.str() << " ‖" << std::endl;
     
     oss.str("");
     oss << x;
-    std::cout << "‖ Искомое число `X`: " << std::setw(35) << std::right << oss.str() << " ‖" << std::endl;
+    std::cout << "‖ Искомое число `X`: " << std::setw(32) << std::right << oss.str() << " ‖" << std::endl;
     
     oss.str("");
     oss << "[" << generationSpanStart << ", " << generationSpanEnd << "]";
-    std::cout << "‖ Диапазон значений: " << std::setw(28) << std::right << oss.str() << " ‖" << std::endl;
+    std::cout << "‖ Диапазон значений: " << std::setw(32) << std::right << oss.str() << " ‖" << std::endl;
     
     std::cout << "+=====================================================+\n" << std::endl;
 
@@ -62,6 +62,6 @@ void PrintDataInputMenu()
     "‖ 1. Ввести количество элементов массива N            ‖" << std::endl <<
     "‖ 2. Ввести искомое число `x`                         ‖" << std::endl <<
     "‖ 3. Ввести диапазон значений массива                 ‖" << std::endl <<
+    "‖ 0. Назад                                            ‖" << std::endl <<
     "+=====================================================+" << std::endl;
-
 }

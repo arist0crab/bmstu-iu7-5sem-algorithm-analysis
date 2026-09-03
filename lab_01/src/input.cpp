@@ -3,7 +3,7 @@
 
 std::expected<int, ParseError> userInputN();
 std::expected<int, ParseError> userInputX(int spanStart, int spanEnd);
-std::expected<size_t, ParseError> userInputMenuOption();
+std::expected<size_t, ParseError> userInputMenuOption(size_t menuOptionsQuantity);
 std::expected<size_t, ParseError> userInputSpanStartInput();
 std::expected<size_t, ParseError> userInputSpanEndInput();
 
@@ -45,13 +45,13 @@ int UserInputXForce(int spanStart, int spanEnd)
 }
 
 
-size_t UserInputMenuOptionForce()
+size_t UserInputMenuOptionForce(size_t menuOptionsQuantity)
 {
-    auto opt = userInputMenuOption();
+    auto opt = userInputMenuOption(menuOptionsQuantity);
     while (!opt.has_value())
     {
         handleParseError(opt.error());
-        opt = userInputMenuOption();
+        opt = userInputMenuOption(menuOptionsQuantity);
     }
     
     return opt.value();
@@ -120,7 +120,7 @@ std::expected<int, ParseError> userInputN()
 }
 
 
-std::expected<size_t, ParseError> userInputMenuOption()
+std::expected<size_t, ParseError> userInputMenuOption(size_t menuOptionsQuantity)
 {
     inputMenuOptionInvitation();
 
@@ -129,7 +129,7 @@ std::expected<size_t, ParseError> userInputMenuOption()
     if (!userInput.has_value())
         return std::unexpected(userInput.error());
 
-    if (userInput.value() > MENU_OPTIONS_QUANTITY - 1)
+    if (userInput.value() > menuOptionsQuantity - 1)
         return std::unexpected(ParseError::InvalidInputDiapason);
 
     return userInput.value();

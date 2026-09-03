@@ -25,6 +25,34 @@ int* generateRandomArray(const size_t arrSize, int spanStart, int spanEnd)
     return arr;
 }
 
+void processDataInputOption(size_t &N, int &x, int &generationSpanStart, int &generationSpanEnd)
+{
+    PrintDataInputMenu();
+    size_t opt = UserInputMenuOptionForce(DATA_INPUT_MENU_OPTIONS_QUANTITY);
+
+    switch (opt)
+    {
+        case 1:
+            N = UserInputNForce();
+            break;
+
+        case 2:
+            x = UserInputXForce(generationSpanStart, generationSpanEnd);
+            break;
+
+        case 3:
+        {
+            std::pair<int, int> diapason = UserInputDiapasonForce();
+            generationSpanStart = diapason.first;
+            generationSpanEnd = diapason.second;
+            break;
+        }
+        
+        default:
+            break;
+    }
+}
+
 
 int main()
 {
@@ -45,7 +73,7 @@ int main()
     {
         PrintMainMenu(arr, N, x, generationSpanStart, generationSpanEnd);
         
-        size_t opt = UserInputMenuOptionForce();
+        size_t opt = UserInputMenuOptionForce(MAIN_MENU_OPTIONS_QUANTITY);
         
         ssize_t index;
         switch (opt)
@@ -55,8 +83,7 @@ int main()
                 break;
 
             case 1:
-                // TODO
-                std::cout << "Здесь должен быть ввод данных" << std::endl;
+                processDataInputOption(N, x, generationSpanStart, generationSpanEnd);
                 break;
 
             case 2:
