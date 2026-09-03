@@ -7,12 +7,28 @@ std::expected<int, ParseError> intInput();
 void inputXInvitation(int spanStart, int spanEnd);
 void inputNInvitation();
 void inputMenuOptionInvitation();
+void inputSpanStartInvatation();
+void inputSpanEndInvatation();
+void handleParseError(ParseError error);
 
 
 std::expected<int, ParseError> UserInputN()
 {
     inputNInvitation();
     return intInput();
+}
+
+
+size_t UserInputNForce()
+{
+    auto n = UserInputN();
+    while (!n.has_value())
+    {
+        handleParseError(n.error());
+        n = UserInputN();
+    }
+    
+    return n.value();
 }
 
 
@@ -32,7 +48,20 @@ std::expected<int, ParseError> UserInputX(int spanStart, int spanEnd)
 }
 
 
-std::expected<size_t, ParseError> UserInputMenuOption(size_t menuOptionsQuantity)
+int UserInputXForce(int spanStart, int spanEnd)
+{
+    auto x = UserInputX(spanStart, spanEnd);
+    while (!x.has_value())
+    {
+        handleParseError(x.error());
+        x = UserInputX(spanStart, spanEnd);
+    }
+    
+    return x.value();
+}
+
+
+std::expected<size_t, ParseError> UserInputMenuOption()
 {
     inputMenuOptionInvitation();
 
@@ -41,10 +70,75 @@ std::expected<size_t, ParseError> UserInputMenuOption(size_t menuOptionsQuantity
     if (!userInput.has_value())
         return std::unexpected(userInput.error());
 
-    if (userInput.value() > menuOptionsQuantity - 1)
+    if (userInput.value() > MENU_OPTIONS_QUANTITY - 1)
         return std::unexpected(ParseError::InvalidInputDiapason);
 
     return userInput.value();
+}
+
+size_t UserInputMenuOptionForce()
+{
+    auto opt = UserInputMenuOption();
+    while (!opt.has_value())
+    {
+        handleParseError(opt.error());
+        opt = UserInputMenuOption();
+    }
+    
+    return opt.value();
+}
+
+
+std::expected<size_t, ParseError> UserInputSpanStartInput()
+{
+    inputSpanStartInvatation();
+    return intInput();
+}
+
+
+std::expected<size_t, ParseError> UserInputSpanEndInput()
+{
+    inputSpanEndInvatation();
+    return intInput();
+}
+
+int UserInputSpanStartInputForce()
+{
+    auto span = UserInputSpanStartInput();
+    while (!span.has_value())
+    {
+        handleParseError(span.error());
+        span = UserInputSpanStartInput();
+    }
+    
+    return span.value();
+}
+
+int UserInputSpanEndInputForce()
+{
+    auto span = UserInputSpanEndInput();
+    while (!span.has_value())
+    {
+        handleParseError(span.error());
+        span = UserInputSpanEndInput();
+    }
+    
+    return span.value();
+}
+
+std::pair<int, int> UserInputDiapasonForce()
+{
+    int spanStart = 0;
+    int spanEnd = 0;
+
+    while (spanStart >= spanEnd)
+    {
+        spanStart = UserInputSpanStartInputForce();
+        spanEnd = UserInputSpanEndInputForce();
+        // TODO обработать случай, когда spanStart >= spanEnd            
+    }
+
+    return std::pair<int, int>(spanStart, spanEnd);
 }
 
 
@@ -167,4 +261,35 @@ void inputNInvitation()
 void inputMenuOptionInvitation()
 {
     std::cout << "Введите пункт меню: ";
+}
+
+
+void inputSpanStartInvatation()
+{
+    std::cout << "Задайте начало диапазона: ";
+}
+
+
+void inputSpanEndInvatation()
+{
+    std::cout << "Задайте конец диапазона: ";
+}
+
+
+void handleParseError(ParseError error)
+{
+    // TODO add red color
+    switch (error)
+    {
+        case ParseError::InvalidInputValue:
+            std::cout << "Введено неверное значение, попробуйте еще раз." << std::endl;
+            break;
+
+        case ParseError::InvalidInputDiapason:
+            std::cout << "Введенное значение не принадлежит требуемому диапазону. Попробуйте еще раз." << std::endl;
+            break;
+        
+        default:
+            break;
+    }
 }

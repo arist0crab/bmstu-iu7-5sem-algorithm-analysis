@@ -27,13 +27,16 @@ int* generateRandomArray(const size_t arrSize, int spanStart, int spanEnd)
 
 int main()
 {
-    size_t N = 10;  // TODO choose randomly
-    int x = 67;  // TODO choose randomly
-    int generationSpanStart = 0;
-    int generationSpanEnd = 10000;
-
     bool isRunning = true;
     std::expected<size_t, ParseError> opt;
+
+    size_t N = UserInputNForce();
+    
+    std::pair diapason = UserInputDiapasonForce();
+    int generationSpanStart = diapason.first;
+    int generationSpanEnd = diapason.second;
+
+    int x = UserInputXForce(generationSpanStart, generationSpanEnd);
 
     int *arr = generateRandomArray(N, generationSpanStart, generationSpanEnd);
 
@@ -41,12 +44,10 @@ int main()
     {
         PrintMainMenu(arr, N, x, generationSpanStart, generationSpanEnd);
         
-        auto opt = UserInputMenuOption(MENU_OPTIONS_QUANTITY);
-        while (!opt.has_value())
-            opt = UserInputMenuOption(MENU_OPTIONS_QUANTITY);
+        size_t opt = UserInputMenuOptionForce();
         
         ssize_t index;
-        switch (opt.value())
+        switch (opt)
         {
             case 0:
                 isRunning = false;
