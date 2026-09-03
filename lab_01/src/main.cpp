@@ -6,16 +6,16 @@
 #include "io.hpp"
 
 
-std::vector<int> generateRandomIntVector(const size_t arrSize, int spanStart = 0, int spanEnd = 10000)
+int* generateRandomArray(const size_t arrSize, int spanStart = 0, int spanEnd = 10000)
 {
-    std::vector<int> arr;
+    int *arr = new int[arrSize];
 
     std::random_device rd; 
     std::mt19937 gen(rd()); 
     std::uniform_int_distribution<int> distrib(spanStart, spanEnd);
 
     for (size_t i = 0; i < arrSize; ++i)
-        arr.push_back(distrib(gen));
+        arr[i] = distrib(gen);
 
     return arr;
 }
