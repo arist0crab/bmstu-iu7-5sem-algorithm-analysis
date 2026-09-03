@@ -3,7 +3,8 @@
 #include <random>
 #include <algorithm>
 
-#include "io.hpp"
+#include "output.hpp"
+#include "input.hpp"
 #include "linearBaseSearch.hpp"
 #include "binBaseSearch.hpp"
 #include "binImprovedSearch.hpp"
