@@ -5,4 +5,5 @@
 #include <bit>
 
 
-ssize_t BinImprovedSearch(const std::vector<int> &arr, const int elem);
+ssize_t BinImprovedSearch(const int *arr, const size_t arrSize, const int elem);
+ssize_t BinImprovedSearch(const int *arr, const size_t arrSize, const int elem, size_t &iterQuantity);

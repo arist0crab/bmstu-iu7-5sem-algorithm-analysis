@@ -1,9 +1,17 @@
 #include "binImprovedSearch.hpp"
 
 
-ssize_t BinImprovedSearch(const std::vector<int> &arr, const int elem)
+ssize_t BinImprovedSearch(const int *arr, const size_t arrSize, const int elem)
 {
-    size_t length = arr.size();
+    size_t dummy;
+    return BinImprovedSearch(arr, arrSize, dummy);
+}
+
+
+ssize_t BinImprovedSearch(const int *arr, const size_t arrSize, const int elem, size_t &iterQuantity)
+{
+    iterQuantity = 0;
+    size_t length = arrSize;
 
     if (length == 0) return -1;
 
@@ -24,8 +32,11 @@ ssize_t BinImprovedSearch(const std::vector<int> &arr, const int elem)
     }
 
     for (step /= 2; step != 0; step /= 2)
+    {
+        iterQuantity++;
         if (arr[beginIndex + step] < elem)
             beginIndex += step;
+    }
     
     return beginIndex + (arr[beginIndex] < elem);
 }
