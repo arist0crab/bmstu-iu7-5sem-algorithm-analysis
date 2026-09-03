@@ -1,18 +1,18 @@
 #include "binBaseSearch.hpp"
 
 
-ssize_t BinBaseSearch(const std::vector<int> &arr, const int elem)
+ssize_t BinBaseSearch(const int *arr, const size_t arrSize, const int elem)
 {
     size_t dummy;
     return BinBaseSearch(arr, elem, dummy);
 }
 
 
-ssize_t BinBaseSearch(const std::vector<int> &arr, const int elem, size_t &iterQuantity)
+ssize_t BinBaseSearch(const int *arr, const size_t arrSize, const int elem, size_t &iterQuantity)
 {
     iterQuantity = 0;
     ssize_t start_ind = 0;
-    ssize_t end_ind = arr.size() - 1;
+    ssize_t end_ind = arrSize - 1;
 
     while (start_ind <= end_ind)
     {
