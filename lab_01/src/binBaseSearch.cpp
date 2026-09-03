@@ -3,11 +3,20 @@
 
 ssize_t BinBaseSearch(const std::vector<int> &arr, const int elem)
 {
+    size_t dummy;
+    return BinBaseSearch(arr, elem, dummy);
+}
+
+
+ssize_t BinBaseSearch(const std::vector<int> &arr, const int elem, size_t &iterQuantity)
+{
+    iterQuantity = 0;
     ssize_t start_ind = 0;
     ssize_t end_ind = arr.size() - 1;
 
     while (start_ind <= end_ind)
     {
+        iterQuantity++;
         ssize_t cur_ind = (end_ind - start_ind) / 2 + start_ind;
 
         if (arr[cur_ind] < elem)
