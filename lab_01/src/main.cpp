@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include <random>
 #include <algorithm>
 
@@ -83,7 +82,7 @@ void processMenuOption(bool &isRunning, size_t &N, int *arr, int &x, std::pair<i
             break;
         
         default:
-            // TODO
+            HandleUnknownError();
             break;
     }
 }
@@ -111,6 +110,7 @@ void processDataInputOption(int *arr, size_t &N, int &x, std::pair<int, int> &ge
             break;
         
         default:
+            HandleUnknownError();
             break;
     }
 }

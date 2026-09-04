@@ -16,7 +16,7 @@ void inputSpanStartInvatation();
 void inputMenuOptionInvitation();
 void inputXInvitation(const std::pair<int, int> &generationSpan);
 
-void handleParseError(ParseError error);
+void HandleParseError(ParseError error);
 
 
 void UserInputNForce(size_t &N)
@@ -24,7 +24,7 @@ void UserInputNForce(size_t &N)
     auto n = userInputN();
     while (!n.has_value())
     {
-        handleParseError(n.error());
+        HandleParseError(n.error());
         n = userInputN();
     }
     
@@ -37,7 +37,7 @@ void UserInputXForce(int &X, const std::pair<int, int> &generationSpan)
     auto x = userInputX(generationSpan);
     while (!x.has_value())
     {
-        handleParseError(x.error());
+        HandleParseError(x.error());
         x = userInputX(generationSpan);
     }
     
@@ -50,7 +50,7 @@ void UserInputMenuOptionForce(const size_t menuOptionsQuantity, size_t &result)
     auto opt = userInputMenuOption(menuOptionsQuantity);
     while (!opt.has_value())
     {
-        handleParseError(opt.error());
+        HandleParseError(opt.error());
         opt = userInputMenuOption(menuOptionsQuantity);
     }
     
@@ -62,7 +62,7 @@ int UserInputSpanStartInputForce()
     auto span = userInputSpanStartInput();
     while (!span.has_value())
     {
-        handleParseError(span.error());
+        HandleParseError(span.error());
         span = userInputSpanStartInput();
     }
     
@@ -74,7 +74,7 @@ int UserInputSpanEndInputForce()
     auto span = userInputSpanEndInput();
     while (!span.has_value())
     {
-        handleParseError(span.error());
+        HandleParseError(span.error());
         span = userInputSpanEndInput();
     }
     
@@ -217,22 +217,4 @@ void inputSpanStartInvatation()
 void inputSpanEndInvatation()
 {
     std::cout << "Задайте конец диапазона: ";
-}
-
-
-void handleParseError(ParseError error)
-{
-    switch (error)
-    {
-        case ParseError::InvalidInputValue:
-            std::cout << RED << "Введено неверное значение, попробуйте еще раз." << RESET << std::endl;
-            break;
-
-        case ParseError::InvalidInputDiapason:
-            std::cout << RED << "Введенное значение не принадлежит требуемому диапазону. Попробуйте еще раз." << RESET << std::endl;
-            break;
-        
-        default:
-            break;
-    }
 }

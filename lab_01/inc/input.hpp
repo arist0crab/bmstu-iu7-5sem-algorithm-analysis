@@ -5,6 +5,7 @@
 #include <expected>
 #include "data.hpp"
 #include "colors.hpp"
+#include "errors.hpp"
 
 
 void UserInputMenuOptionForce(const size_t menuOptionsQuantity, size_t &result);
