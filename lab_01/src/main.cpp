@@ -106,17 +106,10 @@ void processResultTableOutput(const int *arr, const int* sortedArr, const size_t
     ssize_t binImprovedIndex = BinImprovedSearch(sortedArr, N, x, binImprovedIterationsQuantity);
     ssize_t binRecursionIndex = BinRecursionSearch(sortedArr, N, x, binRecursionIterationsQuantity);
 
-    std::cout << 
-    "+=====================================================+" << std::endl <<
-    "‖         Результаты поиска элемента X                ‖" << std::endl <<
-    "+=====================================================+" << std::endl <<
-    "‖ Алгоритм                    ‖ Индекс ‖ Итераций     ‖" << std::endl <<
-    "+-----------------------------+--------+--------------+" << std::endl;
-    std::cout << "‖ Линейный                    ‖ " << std::setw(6) << std::right << (linearBaseIndex != -1 ? std::to_string(linearBaseIndex) : "  --  ") << " ‖ " << std::setw(12) << std::right << linearBaseIterationsQuantity << " ‖" << std::endl;
-    std::cout << "‖ Бинарный классический       ‖ " << std::setw(6) << std::right << (binBaseIndex != -1 ? std::to_string(binBaseIndex) : "  --  ") << " ‖ " << std::setw(12) << std::right << binBaseIterationsQuantity << " ‖" << std::endl;
-    std::cout << "‖ Бинарный модифицированный   ‖ " << std::setw(6) << std::right << (binImprovedIndex != -1 ? std::to_string(binImprovedIndex) : "  --  ") << " ‖ " << std::setw(12) << std::right << binImprovedIterationsQuantity << " ‖" << std::endl;
-    std::cout << "‖ Бинарный рекурсивный        ‖ " << std::setw(6) << std::right << (binRecursionIndex != -1 ? std::to_string(binRecursionIndex) : "  --  ") << " ‖ " << std::setw(12) << std::right << binRecursionIterationsQuantity << " ‖" << std::endl;
-    std::cout << "+=====================================================+" << std::endl;
+    size_t algosIterationsQuantity[] = { linearBaseIterationsQuantity, binBaseIterationsQuantity, binImprovedIterationsQuantity, binRecursionIterationsQuantity };
+    ssize_t algosResultsIndexes[] = { linearBaseIndex, binBaseIndex, binImprovedIndex, binRecursionIndex };
+
+    PrintResultTable(algosIterationsQuantity, algosResultsIndexes);
 }
 
 

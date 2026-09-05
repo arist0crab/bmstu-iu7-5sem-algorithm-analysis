@@ -56,6 +56,28 @@ void PrintDataInputMenu()
 }
 
 
+void PrintResultTable(const size_t *algosIterationsQuantity, const ssize_t *algosResultsIndexes)
+{
+    const char* algosNames[] = {
+        "Линейный                   ",
+        "Бинарный классический      ",
+        "Бинарный модифицированный  ",
+        "Бинарный рекурсивный       "
+    };
+
+    std::cout << 
+    "+===========================================================+" << std::endl <<
+    "‖              Результаты поиска элемента X                 ‖" << std::endl <<
+    "+===========================================================+" << std::endl <<
+    "‖ Алгоритм                    ‖ Индекс ‖ Итераций           ‖" << std::endl <<
+    "+-----------------------------+--------+--------------------+" << std::endl;
+
+    for (int i = 0; i < 4; ++i)
+        std::cout << "‖ " << std::left << algosNames[i] << " ‖ " << std::setw(6) << std::right << (algosResultsIndexes[i] != -1 ? std::to_string(algosResultsIndexes[i]) : "  --  ") << " ‖ " << std::setw(18) << std::right << algosIterationsQuantity[i] << " ‖" << std::endl;
+    std::cout << "+===========================================================+" << std::endl;
+}
+
+
 void printArray(const int* arr, const size_t arrSize, const std::string& name = "Массив")
 {
     std::cout << name << ":" << std::endl;
