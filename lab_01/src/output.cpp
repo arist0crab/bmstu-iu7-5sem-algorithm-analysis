@@ -1,19 +1,21 @@
 #include "output.hpp"
 
+void printArray(const int* arr, const size_t arrSize, const std::string& name);
 
 
-void PrintMainMenu(const int *arr, const size_t arrSize, const int x, const std::pair<int, int> &generationSpan)
+void PrintMainMenu(const int *arr, const int *sortedArr, const size_t arrSize, const int x, const std::pair<int, int> &generationSpan)
 {
     std::cout << 
     "+=====================================================+" << std::endl <<
     "‖                    Главное меню                     ‖" << std::endl <<
     "+=====================================================+" << std::endl <<
     "‖ 1. Настройка входных данных                         ‖" << std::endl <<
-    "‖ 2. Линейный алгоритм поиска                         ‖" << std::endl <<
-    "‖ 3. Классический бинарный алгоритм поиска            ‖" << std::endl <<
-    "‖ 4. Модифицированный бинарный алгоритм поиска        ‖" << std::endl <<
-    "‖ 5. Рекурсивный бинарный алгоритм поиска             ‖" << std::endl <<
-    "‖ 6. Полная таблица сравнения эффективности           ‖" << std::endl <<
+    "‖ 2. Сгенерировать массив заново                      ‖" << std::endl <<
+    "‖ 3. Линейный алгоритм поиска                         ‖" << std::endl <<
+    "‖ 4. Классический бинарный алгоритм поиска            ‖" << std::endl <<
+    "‖ 5. Модифицированный бинарный алгоритм поиска        ‖" << std::endl <<
+    "‖ 6. Рекурсивный бинарный алгоритм поиска             ‖" << std::endl <<
+    "‖ 7. Полная таблица сравнения эффективности           ‖" << std::endl <<
     "‖ 0. Выход                                            ‖" << std::endl <<
     "+=====================================================+" << std::endl <<
     "‖                   Текущие данные                    ‖" << std::endl <<
@@ -33,21 +35,8 @@ void PrintMainMenu(const int *arr, const size_t arrSize, const int x, const std:
     
     std::cout << "+=====================================================+\n" << std::endl;
 
-    std::cout << "Текущий массив значений:" << std::endl;
-    
-    if (arr == nullptr || arrSize == 0)
-        std::cout << "[Массив пуст]" << std::endl;
-    else
-    {
-        std::cout << "[";
-        for (size_t i = 0; i < arrSize; ++i)
-        {
-            std::cout << arr[i];
-            if (i < arrSize - 1)
-                std::cout << ", ";
-        }
-        std::cout << "]" << std::endl;
-    }
+    printArray(arr, arrSize, "Несортированный массив");
+    printArray(sortedArr, arrSize, "Отсортированный массив");
     
     std::cout << std::endl;
 }
@@ -65,6 +54,26 @@ void PrintDataInputMenu()
     "‖ 0. Назад                                            ‖" << std::endl <<
     "+=====================================================+" << std::endl;
 }
+
+
+void printArray(const int* arr, const size_t arrSize, const std::string& name = "Массив")
+{
+    std::cout << name << ":" << std::endl;
+    
+    if (arr == nullptr || arrSize == 0) {
+        std::cout << "[Пусто]" << std::endl;
+        return;
+    }
+    
+    std::cout << "[";
+    for (size_t i = 0; i < arrSize; ++i) {
+        std::cout << arr[i];
+        if (i < arrSize - 1)
+            std::cout << ", ";
+    }
+    std::cout << "]" << std::endl;
+}
+
 
 void PrintLinearBaseSearchResult(size_t index)
 {

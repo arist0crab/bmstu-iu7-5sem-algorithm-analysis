@@ -7,7 +7,7 @@
 #include "data.hpp"
 
 
-void PrintMainMenu(const int *arr, const size_t arrSize, const int x, const std::pair<int, int> &generationSpan);
+void PrintMainMenu(const int *arr, const int *sortedArr, const size_t arrSize, const int x, const std::pair<int, int> &generationSpan);
 void PrintDataInputMenu();
 
 void PrintLinearBaseSearchResult(size_t index);

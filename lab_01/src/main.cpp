@@ -9,9 +9,10 @@
 #include "binImprovedSearch.hpp"
 #include "binRecursionSearch.hpp"
 
-void processDataInputOption(int *arr, size_t &N, int &x, std::pair<int, int> &generationSpan);
-void processMenuOption(bool &isRunning, size_t &N, int *arr, int &x, std::pair<int, int> &generationSpan, const size_t opt);
-void generateRandomArray(int*& arr, const size_t arrSize, const std::pair<int, int> &generationSpan);
+void processDataInputOption(int*& arr, int*& sortedArr, size_t &N, int &x, std::pair<int, int> &generationSpan);
+void processResultTableOutput(const int *arr, const int* sortedArr, const size_t N, const int x);
+void processMenuOption(bool &isRunning, size_t &N, int*& arr, int*& sortedArr, int &x, std::pair<int, int> &generationSpan, const size_t opt);
+void generateRandomArray(int*& arr, int*& sortedArr, const size_t arrSize, const std::pair<int, int> &generationSpan, const int x);
 
 
 int main()
@@ -24,26 +25,28 @@ int main()
     std::pair<int, int> generationSpan;
 
     int *arr = nullptr;
+    int *sortedArr = nullptr;
     
     UserInputNForce(N);
     UserInputDiapasonForce(generationSpan);
     UserInputXForce(x, generationSpan);
-    generateRandomArray(arr, N, generationSpan);
+    generateRandomArray(arr, sortedArr, N, generationSpan, x);
 
     while (isRunning)
     {
-        PrintMainMenu(arr, N, x, generationSpan);
+        PrintMainMenu(arr, sortedArr, N, x, generationSpan);
         UserInputMenuOptionForce(MAIN_MENU_OPTIONS_QUANTITY, menuOpt);
-        processMenuOption(isRunning, N, arr, x, generationSpan, menuOpt);
+        processMenuOption(isRunning, N, arr, sortedArr, x, generationSpan, menuOpt);
     }
 
     delete[] arr;
+    delete[] sortedArr;
 
     return 0;
 }
 
 
-void processMenuOption(bool &isRunning, size_t &N, int *arr, int &x, std::pair<int, int> &generationSpan, const size_t opt)
+void processMenuOption(bool &isRunning, size_t &N, int*& arr, int*& sortedArr, int &x, std::pair<int, int> &generationSpan, const size_t opt)
 {
     ssize_t index;
     switch (opt)
@@ -53,32 +56,35 @@ void processMenuOption(bool &isRunning, size_t &N, int *arr, int &x, std::pair<i
             break;
 
         case 1:
-            processDataInputOption(arr, N, x, generationSpan);
+            processDataInputOption(arr, sortedArr, N, x, generationSpan);
             break;
 
         case 2:
+            generateRandomArray(arr, sortedArr, N, generationSpan, x);
+            break;
+
+        case 3:
             index = LinearBaseSearch(arr, N, x);
             PrintLinearBaseSearchResult(index);
             break;
 
-        case 3:
-            index = BinBaseSearch(arr, N, x);
+        case 4:
+            index = BinBaseSearch(sortedArr, N, x);
             PrintBinBaseSearchResult(index);
             break;
 
-        case 4:
-            index = BinImprovedSearch(arr, N, x);
+        case 5:
+            index = BinImprovedSearch(sortedArr, N, x);
             PrintBinImprovedSearchResult(index);
             break;
 
-        case 5:
-            index = BinRecursionSearch(arr, N, x);
+        case 6:
+            index = BinRecursionSearch(sortedArr, N, x);
             PrintBinRecursionSearchResult(index);
             break;
 
-        case 6:
-            // TODO
-            std::cout << "Здесь должен быть вывод итоговой таблички";
+        case 7:
+            processResultTableOutput(arr, sortedArr, N, x);
             break;
         
         default:
@@ -87,7 +93,34 @@ void processMenuOption(bool &isRunning, size_t &N, int *arr, int &x, std::pair<i
     }
 }
 
-void processDataInputOption(int *arr, size_t &N, int &x, std::pair<int, int> &generationSpan)
+
+void processResultTableOutput(const int *arr, const int* sortedArr, const size_t N, const int x)
+{
+    size_t linearBaseIterationsQuantity = 0;
+    size_t binBaseIterationsQuantity = 0;
+    size_t binImprovedIterationsQuantity = 0;
+    size_t binRecursionIterationsQuantity = 0;
+
+    ssize_t linearBaseIndex = LinearBaseSearch(arr, N, x, linearBaseIterationsQuantity);
+    ssize_t binBaseIndex = BinBaseSearch(sortedArr, N, x, binBaseIterationsQuantity);
+    ssize_t binImprovedIndex = BinImprovedSearch(sortedArr, N, x, binImprovedIterationsQuantity);
+    ssize_t binRecursionIndex = BinRecursionSearch(sortedArr, N, x, binRecursionIterationsQuantity);
+
+    std::cout << 
+    "+=====================================================+" << std::endl <<
+    "‖         Результаты поиска элемента X                ‖" << std::endl <<
+    "+=====================================================+" << std::endl <<
+    "‖ Алгоритм                    ‖ Индекс ‖ Итераций     ‖" << std::endl <<
+    "+-----------------------------+--------+--------------+" << std::endl;
+    std::cout << "‖ Линейный                    ‖ " << std::setw(6) << std::right << (linearBaseIndex != -1 ? std::to_string(linearBaseIndex) : "  --  ") << " ‖ " << std::setw(12) << std::right << linearBaseIterationsQuantity << " ‖" << std::endl;
+    std::cout << "‖ Бинарный классический       ‖ " << std::setw(6) << std::right << (binBaseIndex != -1 ? std::to_string(binBaseIndex) : "  --  ") << " ‖ " << std::setw(12) << std::right << binBaseIterationsQuantity << " ‖" << std::endl;
+    std::cout << "‖ Бинарный модифицированный   ‖ " << std::setw(6) << std::right << (binImprovedIndex != -1 ? std::to_string(binImprovedIndex) : "  --  ") << " ‖ " << std::setw(12) << std::right << binImprovedIterationsQuantity << " ‖" << std::endl;
+    std::cout << "‖ Бинарный рекурсивный        ‖ " << std::setw(6) << std::right << (binRecursionIndex != -1 ? std::to_string(binRecursionIndex) : "  --  ") << " ‖ " << std::setw(12) << std::right << binRecursionIterationsQuantity << " ‖" << std::endl;
+    std::cout << "+=====================================================+" << std::endl;
+}
+
+
+void processDataInputOption(int*& arr, int*& sortedArr, size_t &N, int &x, std::pair<int, int> &generationSpan)
 {
     size_t opt;
     PrintDataInputMenu();
@@ -97,7 +130,7 @@ void processDataInputOption(int *arr, size_t &N, int &x, std::pair<int, int> &ge
     {
         case 1:
             UserInputNForce(N);
-            generateRandomArray(arr, N, generationSpan);
+            generateRandomArray(arr, sortedArr, N, generationSpan, x);
             break;
 
         case 2:
@@ -106,7 +139,7 @@ void processDataInputOption(int *arr, size_t &N, int &x, std::pair<int, int> &ge
 
         case 3:
             UserInputDiapasonForce(generationSpan);
-            generateRandomArray(arr, N, generationSpan);
+            generateRandomArray(arr, sortedArr, N, generationSpan, x);
             break;
         
         default:
@@ -116,15 +149,26 @@ void processDataInputOption(int *arr, size_t &N, int &x, std::pair<int, int> &ge
 }
 
 
-void generateRandomArray(int*& arr, const size_t arrSize, const std::pair<int, int> &generationSpan)
+void generateRandomArray(int*& arr, int*& sortedArr, const size_t arrSize, const std::pair<int, int> &generationSpan, const int x)
 {
     delete[] arr;
-    arr = new int[arrSize];
+    delete[] sortedArr;
 
-    std::random_device rd; 
+    arr = new int[arrSize];
+    sortedArr = new int[arrSize];
+
+    std::random_device rd;
     std::mt19937 gen(rd()); 
-    std::uniform_int_distribution<int> distrib(generationSpan.first, generationSpan.second);
+    std::uniform_int_distribution<size_t> distribIndexes(0, arrSize - 1);
+    std::uniform_int_distribution<int> distribElems(generationSpan.first, generationSpan.second);
+
+    size_t randomIndex = distribIndexes(gen);
 
     for (size_t i = 0; i < arrSize; ++i)
-        arr[i] = distrib(gen);
+        if (i != randomIndex)
+            arr[i] = distribElems(gen);
+    arr[randomIndex] = x;
+
+    std::copy(arr, arr + arrSize, sortedArr);
+    std::sort(sortedArr, sortedArr + arrSize);
 }
