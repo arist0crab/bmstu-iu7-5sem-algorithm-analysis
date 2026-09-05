@@ -5,7 +5,7 @@ void printArray(const int* arr, const size_t arrSize, const std::string& name);
 
 void PrintMainMenu(const int *arr, const int *sortedArr, const size_t arrSize, const int x, const std::pair<int, int> &generationSpan)
 {
-    std::cout << 
+    std::cout << "\n" <<
     "+=====================================================+" << std::endl <<
     "‖                    Главное меню                     ‖" << std::endl <<
     "+=====================================================+" << std::endl <<
@@ -37,14 +37,12 @@ void PrintMainMenu(const int *arr, const int *sortedArr, const size_t arrSize, c
 
     printArray(arr, arrSize, "Несортированный массив");
     printArray(sortedArr, arrSize, "Отсортированный массив");
-    
-    std::cout << std::endl;
 }
 
 
 void PrintDataInputMenu()
 {
-    std::cout << 
+    std::cout << "\n" <<
     "+=====================================================+" << std::endl <<
     "‖                Меню ввода данных                    ‖" << std::endl <<
     "+=====================================================+" << std::endl <<
@@ -80,7 +78,7 @@ void PrintResultTable(const size_t *algosIterationsQuantity, const ssize_t *algo
 
 void printArray(const int* arr, const size_t arrSize, const std::string& name = "Массив")
 {
-    std::cout << name << ":" << std::endl;
+    std::cout << "=== " << name <<  " === " << std::endl;
     
     if (arr == nullptr || arrSize == 0) {
         std::cout << "[Пусто]" << std::endl;
@@ -93,7 +91,7 @@ void printArray(const int* arr, const size_t arrSize, const std::string& name = 
         if (i < arrSize - 1)
             std::cout << ", ";
     }
-    std::cout << "]" << std::endl;
+    std::cout << "]\n" << std::endl;
 }
 
 
