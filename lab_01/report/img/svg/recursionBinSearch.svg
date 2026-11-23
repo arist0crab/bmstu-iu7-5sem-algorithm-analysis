@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 810" width="920" height="810">
+  <defs>
+    <style>
+      .shape { fill: #ffffff; stroke: #000000; stroke-width: 1.5; }
+      .line { fill: none; stroke: #000000; stroke-width: 1.5; }
+      .txt { font-family: "Times New Roman", serif; font-size: 13px; fill: #000000; text-anchor: middle; dominant-baseline: central; }
+      .lbl { font-family: "Times New Roman", serif; font-size: 12px; fill: #000000; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#000000"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#ffffff"/>
+
+  <!-- Единая ширина всех блоков: 240px (главная ось X = 440) -->
+
+  <!-- Терминатор: Начало -->
+  <rect x="320" y="20" width="240" height="42" rx="21" ry="21" class="shape"/>
+  <text x="440" y="41" class="txt">Начало</text>
+  <line x1="440" y1="62" x2="440" y2="85" class="line"/>
+
+  <!-- Процесс: recursionDepth++ -->
+  <rect x="320" y="85" width="240" height="38" class="shape"/>
+  <text x="440" y="104" class="txt">recursionDepth++</text>
+  <line x1="440" y1="123" x2="440" y2="148" class="line"/>
+
+  <!-- Решение 1: leftIndex > rightIndex -->
+  <polygon points="440,148 560,184 440,220 320,184" class="shape"/>
+  <text x="440" y="184" class="txt">leftIndex &gt; rightIndex</text>
+
+  <!-- Ветка Да (влево -> return -1, блок шириной 240px: x=20..260, центр=140) -->
+  <line x1="320" y1="184" x2="140" y2="184" class="line"/>
+  <text x="285" y="176" class="lbl">Да</text>
+  <line x1="140" y1="184" x2="140" y2="235" class="line"/>
+  <rect x="20" y="235" width="240" height="38" class="shape"/>
+  <text x="140" y="254" class="txt">Вернуть -1</text>
+  <line x1="140" y1="273" x2="140" y2="755" class="line"/>
+  <line x1="140" y1="755" x2="320" y2="755" class="line" marker-end="url(#arrow)"/>
+
+  <!-- Ветка Нет (вниз) -->
+  <line x1="440" y1="220" x2="440" y2="248" class="line"/>
+  <text x="448" y="234" class="lbl">Нет</text>
+
+  <!-- Процесс: middleIndex (ширина 240px) -->
+  <rect x="320" y="248" width="240" height="46" class="shape"/>
+  <text x="440" y="263" class="txt">middleIndex = leftIndex +</text>
+  <text x="440" y="279" class="txt">(rightIndex - leftIndex) / 2</text>
+  <line x1="440" y1="294" x2="440" y2="320" class="line"/>
+
+  <!-- Решение 2: arr[middleIndex] == elem -->
+  <polygon points="440,320 560,356 440,392 320,356" class="shape"/>
+  <text x="440" y="356" class="txt">arr[middleIndex] == elem</text>
+
+  <!-- Ветка Да (вправо -> return middleIndex, блок шириной 240px: x=660..900, центр=780) -->
+  <line x1="560" y1="356" x2="780" y2="356" class="line"/>
+  <text x="580" y="348" class="lbl">Да</text>
+  <line x1="780" y1="356" x2="780" y2="405" class="line"/>
+  <rect x="660" y="405" width="240" height="38" class="shape"/>
+  <text x="780" y="424" class="txt">Вернуть middleIndex</text>
+  <line x1="780" y1="443" x2="780" y2="755" class="line"/>
+  <line x1="780" y1="755" x2="560" y2="755" class="line" marker-end="url(#arrow)"/>
+
+  <!-- Ветка Нет (вниз) -->
+  <line x1="440" y1="392" x2="440" y2="422" class="line"/>
+  <text x="448" y="406" class="lbl">Нет</text>
+
+  <!-- Решение 3: arr[middleIndex] > elem -->
+  <polygon points="440,422 560,458 440,494 320,458" class="shape"/>
+  <text x="440" y="458" class="txt">arr[middleIndex] &gt; elem</text>
+
+  <!-- Ветка Да (влево -> Предопределенный процесс шириной 240px: x=170..410, центр=290) -->
+  <line x1="320" y1="458" x2="290" y2="458" class="line"/>
+  <text x="298" y="450" class="lbl">Да</text>
+  <line x1="290" y1="458" x2="290" y2="530" class="line"/>
+  <rect x="170" y="530" width="240" height="72" class="shape"/>
+  <line x1="182" y1="530" x2="182" y2="602" class="line"/>
+  <line x1="398" y1="530" x2="398" y2="602" class="line"/>
+  <text x="290" y="549" class="txt">Вернуть</text>
+  <text x="290" y="566" class="txt">binRecursionIteration(...,</text>
+  <text x="290" y="583" class="txt">leftIndex, middleIndex - 1)</text>
+
+  <!-- Ветка Нет (вправо -> Предопределенный процесс шириной 240px: x=470..710, центр=590) -->
+  <line x1="560" y1="458" x2="590" y2="458" class="line"/>
+  <text x="570" y="450" class="lbl">Нет</text>
+  <line x1="590" y1="458" x2="590" y2="530" class="line"/>
+  <rect x="470" y="530" width="240" height="72" class="shape"/>
+  <line x1="482" y1="530" x2="482" y2="602" class="line"/>
+  <line x1="698" y1="530" x2="698" y2="602" class="line"/>
+  <text x="590" y="549" class="txt">Вернуть</text>
+  <text x="590" y="566" class="txt">binRecursionIteration(...,</text>
+  <text x="590" y="583" class="txt">middleIndex + 1, rightIndex)</text>
+
+  <!-- Объединение веток рекурсии -->
+  <line x1="290" y1="602" x2="290" y2="670" class="line"/>
+  <line x1="590" y1="602" x2="590" y2="670" class="line"/>
+  <line x1="290" y1="670" x2="590" y2="670" class="line"/>
+  <line x1="440" y1="670" x2="440" y2="734" class="line"/>
+
+  <!-- Терминатор: Конец -->
+  <rect x="320" y="734" width="240" height="42" rx="21" ry="21" class="shape"/>
+  <text x="440" y="755" class="txt">Конец</text>
+</svg>
