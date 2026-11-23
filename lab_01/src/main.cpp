@@ -121,6 +121,9 @@ void processDataInputOption(int*& arr, int*& sortedArr, size_t &N, int &x, std::
 
     switch (opt)
     {
+        case 0:
+            break;
+            
         case 1:
             UserInputNForce(N);
             generateRandomArray(arr, sortedArr, N, generationSpan, x);
