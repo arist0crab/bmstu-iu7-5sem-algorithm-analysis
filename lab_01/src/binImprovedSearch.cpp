@@ -1,5 +1,5 @@
 #include "binImprovedSearch.hpp"
-
+#include <bit>
 
 ssize_t BinImprovedSearch(const int *arr, const size_t arrSize, const int elem)
 {
@@ -7,36 +7,30 @@ ssize_t BinImprovedSearch(const int *arr, const size_t arrSize, const int elem)
     return BinImprovedSearch(arr, arrSize, elem, dummy);
 }
 
-
 ssize_t BinImprovedSearch(const int *arr, const size_t arrSize, const int elem, size_t &iterQuantity)
 {
     iterQuantity = 0;
-    size_t length = arrSize;
 
-    if (length == 0) return -1;
-
-    size_t step = std::bit_floor(length);
+    if (arr == nullptr || arrSize == 0)
+        return -1;
 
     size_t beginIndex = 0;
-    size_t endIndex = length - 1;
+    size_t step = std::bit_ceil(arrSize) / 2;
 
-    if (step != length && arr[beginIndex + step] < elem)
+    for (; step != 0; step /= 2)
     {
-        length -= step + 1;
-
-        if (length == 0) 
-            return -1;
-
-        step = std::bit_ceil(length);
-        beginIndex = endIndex - step;
+        if (beginIndex + step < arrSize)
+        {
+            iterQuantity++;
+            if (arr[beginIndex + step] < elem)
+                beginIndex += step;
+        }
     }
 
-    for (step /= 2; step != 0; step /= 2)
-    {
-        iterQuantity++;
-        if (arr[beginIndex + step] < elem)
-            beginIndex += step;
-    }
-    
-    return beginIndex + (arr[beginIndex] < elem);
+    const size_t pos = beginIndex + (arr[beginIndex] < elem ? 1 : 0);
+
+    if (pos < arrSize && arr[pos] == elem)
+        return static_cast<ssize_t>(pos);
+
+    return -1;
 }
