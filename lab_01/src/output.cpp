@@ -95,22 +95,22 @@ void printArray(const int* arr, const size_t arrSize, const std::string& name = 
 }
 
 
-void PrintLinearBaseSearchResult(size_t index)
+void PrintLinearBaseSearchResult(ssize_t index)
 {
     std::cout << "Индекс, найденный линейным алгоритмом: " << index << std::endl;
 }
 
-void PrintBinBaseSearchResult(size_t index)
+void PrintBinBaseSearchResult(ssize_t index)
 {
     std::cout << "Индекс, найденный бинарным алгоритмом: " << index << std::endl;
 }
 
-void PrintBinImprovedSearchResult(size_t index)
+void PrintBinImprovedSearchResult(ssize_t index)
 {
     std::cout << "Индекс, найденный модифицированным бинарным алгоритмом: " << index << std::endl; 
 }
 
-void PrintBinRecursionSearchResult(size_t index)
+void PrintBinRecursionSearchResult(ssize_t index)
 {
     std::cout << "Индекс, найденный рекурсивным бинарным алгоритмом: " << index << std::endl; 
 }
