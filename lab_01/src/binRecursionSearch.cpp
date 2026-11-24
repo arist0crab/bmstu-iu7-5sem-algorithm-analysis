@@ -32,6 +32,7 @@ ssize_t binRecursionIteration(const int *arr, const int elem, ssize_t leftIndex,
 
     if (arr[middleIndex] > elem)
         return binRecursionIteration(arr, elem, leftIndex, middleIndex - 1, recursionDepth);
+    
     return binRecursionIteration(arr, elem, middleIndex + 1, rightIndex, recursionDepth);
 
 }

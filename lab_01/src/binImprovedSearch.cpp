@@ -21,13 +21,16 @@ ssize_t BinImprovedSearch(const int *arr, const size_t arrSize, const int elem, 
     {
         if (beginIndex + step < arrSize)
         {
-            iterQuantity++;
             if (arr[beginIndex + step] < elem)
+            {
+                iterQuantity++;
                 beginIndex += step;
+            }
         }
     }
 
     const size_t pos = beginIndex + (arr[beginIndex] < elem ? 1 : 0);
+    iterQuantity++;
 
     if (pos < arrSize && arr[pos] == elem)
         return static_cast<ssize_t>(pos);

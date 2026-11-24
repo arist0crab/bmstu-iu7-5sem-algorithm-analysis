@@ -16,13 +16,19 @@ ssize_t BinBaseSearch(const int *arr, const size_t arrSize, const int elem, size
 
     while (start_ind <= end_ind)
     {
-        iterQuantity++;
+        
         ssize_t cur_ind = (end_ind - start_ind) / 2 + start_ind;
 
         if (arr[cur_ind] < elem)
+        {
+            iterQuantity++;
             start_ind = cur_ind + 1;
+        }
         else if (arr[cur_ind] > elem)
+        {
+            iterQuantity++;
             end_ind = cur_ind - 1;
+        }
         else
             return cur_ind;
     }
