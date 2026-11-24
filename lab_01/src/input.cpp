@@ -15,6 +15,7 @@ void inputSpanEndInvatation();
 void inputSpanStartInvatation();
 void inputMenuOptionInvitation();
 void inputXInvitation(const std::pair<int, int> &generationSpan);
+void inputArrayElementInvitation(size_t index, size_t arrSize);
 
 void HandleParseError(ParseError error);
 
@@ -94,6 +95,32 @@ void UserInputDiapasonForce(std::pair<int, int> &generationSpan)
     }
 
     generationSpan = std::pair<int, int>(spanStart, spanEnd);
+}
+
+
+void UserInputArrayForce(int*& arr, int*& sortedArr, const size_t arrSize)
+{
+    delete[] arr;
+    delete[] sortedArr;
+
+    arr = new int[arrSize];
+    sortedArr = new int[arrSize];
+
+    for (size_t i = 0; i < arrSize; ++i)
+    {
+        inputArrayElementInvitation(i, arrSize);
+        auto elem = intInput();
+        while (!elem.has_value())
+        {
+            HandleParseError(elem.error());
+            inputArrayElementInvitation(i, arrSize);
+            elem = intInput();
+        }
+        arr[i] = elem.value();
+    }
+
+    std::copy(arr, arr + arrSize, sortedArr);
+    std::sort(sortedArr, sortedArr + arrSize);
 }
 
 
@@ -217,4 +244,10 @@ void inputSpanStartInvatation()
 void inputSpanEndInvatation()
 {
     std::cout << "Задайте конец диапазона: ";
+}
+
+
+void inputArrayElementInvitation(size_t index, size_t arrSize)
+{
+    std::cout << "Введите элемент массива [" << (index + 1) << "/" << arrSize << "]: ";
 }

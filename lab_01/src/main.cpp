@@ -117,7 +117,7 @@ void processDataInputOption(int*& arr, int*& sortedArr, size_t &N, int &x, std::
 {
     size_t opt;
     PrintDataInputMenu();
-    UserInputMenuOptionForce(DATA_INPUT_MENU_OPTIONS_QUANTITY, opt);
+    UserInputMenuOptionForce(5, opt);
 
     switch (opt)
     {
@@ -136,6 +136,15 @@ void processDataInputOption(int*& arr, int*& sortedArr, size_t &N, int &x, std::
         case 3:
             UserInputDiapasonForce(generationSpan);
             generateRandomArray(arr, sortedArr, N, generationSpan, x);
+            break;
+
+        case 4:
+            UserInputArrayForce(arr, sortedArr, N);
+            if (N > 0)
+            {
+                generationSpan.first = sortedArr[0];
+                generationSpan.second = sortedArr[N - 1];
+            }
             break;
         
         default:

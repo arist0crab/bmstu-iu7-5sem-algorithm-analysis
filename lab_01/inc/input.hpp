@@ -1,14 +1,15 @@
 #pragma once
 
-
 #include <iostream>
+#include <string>
+#include <utility>
 #include <expected>
-#include "data.hpp"
-#include "colors.hpp"
+#include <algorithm>
+
 #include "errors.hpp"
 
-
-void UserInputMenuOptionForce(const size_t menuOptionsQuantity, size_t &result);
-void UserInputXForce(int &X, const std::pair<int, int> &generationSpan);
-void UserInputDiapasonForce(std::pair<int, int> &generationSpan);
 void UserInputNForce(size_t &N);
+void UserInputXForce(int &X, const std::pair<int, int> &generationSpan);
+void UserInputMenuOptionForce(const size_t menuOptionsQuantity, size_t &result);
+void UserInputDiapasonForce(std::pair<int, int> &generationSpan);
+void UserInputArrayForce(int*& arr, int*& sortedArr, const size_t arrSize);
