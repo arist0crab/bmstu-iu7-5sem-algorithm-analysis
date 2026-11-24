@@ -1,8 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 1030" width="880" height="1030">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1040" width="900" height="1040">
   <defs>
     <style>
       .shape { fill: #ffffff; stroke: #000000; stroke-width: 1.5; }
-      .line { fill: none; stroke: #000000; stroke-width: 1.5; }
+      .arrow { fill: none; stroke: #000000; stroke-width: 1.5; marker-end: url(#arrow); }
+      .wire { fill: none; stroke: #000000; stroke-width: 1.5; }
       .txt { font-family: "Times New Roman", serif; font-size: 13px; fill: #000000; text-anchor: middle; dominant-baseline: central; }
       .lbl { font-family: "Times New Roman", serif; font-size: 12px; fill: #000000; }
     </style>
@@ -13,115 +14,102 @@
 
   <rect width="100%" height="100%" fill="#ffffff"/>
 
-  <!-- Единая ширина всех блоков: 240px (главная ось X = 390) -->
-
-  <!-- Терминатор: Начало -->
+  <!-- Начало (только 1 выход снизу) -> iterQuantity = 0 (1 вход сверху, 1 выход снизу) -->
   <rect x="270" y="15" width="240" height="42" rx="21" ry="21" class="shape"/>
   <text x="390" y="36" class="txt">Начало</text>
-  <line x1="390" y1="57" x2="390" y2="78" class="line"/>
+  <line x1="390" y1="57" x2="390" y2="78" class="arrow"/>
 
-  <!-- Процесс: iterQuantity = 0 -->
   <rect x="270" y="78" width="240" height="36" class="shape"/>
   <text x="390" y="96" class="txt">iterQuantity = 0</text>
-  <line x1="390" y1="114" x2="390" y2="134" class="line"/>
+  <line x1="390" y1="114" x2="390" y2="134" class="arrow"/>
 
-  <!-- Решение 1: arr == nullptr || arrSize == 0 -->
+  <!-- Решение 1: arr == nullptr || arrSize == 0 (ромб: 1 вход сверху, 2 выхода: Да вправо, Нет вниз) -->
   <polygon points="390,134 510,170 390,206 270,170" class="shape"/>
   <text x="390" y="170" class="txt">arr == nullptr || arrSize == 0</text>
 
-  <!-- Ветка Да (вправо -> return -1, блок шириной 240px: x=615..855, центр=735) -->
-  <line x1="510" y1="170" x2="735" y2="170" class="line"/>
+  <!-- Ветка Да (пустой/нулевой массив) -> стрелка прямо в верхнюю границу блока Вернуть -1 (x=640, y=880) -->
+  <polyline points="510,170 820,170 820,858 640,858 640,880" class="arrow"/>
   <text x="530" y="162" class="lbl">Да</text>
-  <line x1="735" y1="170" x2="735" y2="215" class="line"/>
-  <rect x="615" y="215" width="240" height="36" class="shape"/>
-  <text x="735" y="233" class="txt">Вернуть -1</text>
-  <line x1="735" y1="251" x2="735" y2="978" class="line"/>
-  <line x1="735" y1="978" x2="510" y2="978" class="line" marker-end="url(#arrow)"/>
 
-  <!-- Ветка Нет (вниз) -->
-  <line x1="390" y1="206" x2="390" y2="228" class="line"/>
+  <!-- Ветка Нет -> beginIndex, step (1 вход сверху, 1 выход снизу) -->
+  <line x1="390" y1="206" x2="390" y2="228" class="arrow"/>
   <text x="398" y="217" class="lbl">Нет</text>
-
-  <!-- Процесс: beginIndex, step -->
   <rect x="270" y="228" width="240" height="46" class="shape"/>
   <text x="390" y="243" class="txt">beginIndex = 0</text>
   <text x="390" y="261" class="txt">step = bit_ceil(arrSize) / 2</text>
-  <line x1="390" y1="274" x2="390" y2="296" class="line"/>
+  <line x1="390" y1="274" x2="390" y2="296" class="arrow"/>
 
-  <!-- Граница цикла (начало) -->
+  <!-- Граница цикла (начало) (1 вход сверху, 1 выход снизу) -> Решение 2 -->
   <polygon points="285,296 495,296 510,311 510,342 270,342 270,311" class="shape"/>
   <text x="390" y="311" class="txt">Цикл step</text>
   <text x="390" y="328" class="txt">step != 0; step /= 2</text>
-  <line x1="390" y1="342" x2="390" y2="365" class="line"/>
+  <line x1="390" y1="342" x2="390" y2="365" class="arrow"/>
 
-  <!-- Решение 2: beginIndex + step < arrSize -->
+  <!-- Решение 2: beginIndex + step < arrSize (ромб: 1 вход сверху, 2 выхода: Нет влево, Да вниз) -->
   <polygon points="390,365 510,400 390,435 270,400" class="shape"/>
   <text x="390" y="400" class="txt">beginIndex + step &lt; arrSize</text>
 
-  <!-- Ветка Нет (обход влево) -->
-  <line x1="270" y1="400" x2="205" y2="400" class="line"/>
-  <text x="235" y="392" class="lbl">Нет</text>
-  <line x1="205" y1="400" x2="205" y2="640" class="line"/>
-  <line x1="205" y1="640" x2="390" y2="640" class="line"/>
-
-  <!-- Ветка Да (вниз) -->
-  <line x1="390" y1="435" x2="390" y2="455" class="line"/>
+  <!-- Ветка Да -> iterQuantity++ (1 вход сверху, 1 выход снизу) -> Решение 3 -->
+  <line x1="390" y1="435" x2="390" y2="455" class="arrow"/>
   <text x="398" y="445" class="lbl">Да</text>
-
-  <!-- Процесс: iterQuantity++ -->
   <rect x="270" y="455" width="240" height="34" class="shape"/>
   <text x="390" y="472" class="txt">iterQuantity++</text>
-  <line x1="390" y1="489" x2="390" y2="510" class="line"/>
+  <line x1="390" y1="489" x2="390" y2="510" class="arrow"/>
 
-  <!-- Решение 3: arr[beginIndex + step] < elem -->
+  <!-- Решение 3: arr[beginIndex + step] < elem (ромб: 1 вход сверху, 2 выхода: Да вправо, Нет вниз) -->
   <polygon points="390,510 510,545 390,580 270,545" class="shape"/>
   <text x="390" y="545" class="txt">arr[beginIndex + step] &lt; elem</text>
 
-  <!-- Да (вправо -> блок шириной 240px: x=475..715, центр=595) -->
-  <line x1="510" y1="545" x2="595" y2="545" class="line"/>
+  <!-- Да -> beginIndex += step (1 вход сверху, 1 выход снизу) -->
+  <polyline points="510,545 605,545 605,572" class="arrow"/>
   <text x="528" y="537" class="lbl">Да</text>
-  <line x1="595" y1="545" x2="595" y2="572" class="line"/>
-  <rect x="475" y="572" width="240" height="36" class="shape"/>
-  <text x="595" y="590" class="txt">beginIndex += step</text>
-  <line x1="595" y1="608" x2="595" y2="625" class="line"/>
-  <line x1="595" y1="625" x2="390" y2="625" class="line"/>
+  <rect x="485" y="572" width="240" height="36" class="shape"/>
+  <text x="605" y="590" class="txt">beginIndex += step</text>
 
-  <!-- Нет (вниз) -->
-  <line x1="390" y1="580" x2="390" y2="660" class="line"/>
-  <text x="398" y="593" class="lbl">Нет</text>
+  <!-- Все три ветки цикла (Нет из Решение 2 на y=400, Нет из Решение 3 на y=580, выход beginIndex += step на y=608)
+       сходятся на едином уровне y=632 к Границе цикла (конец) (1 вход сверху, 1 выход снизу) -->
+  <polyline points="270,400 205,400 205,632" class="wire"/>
+  <line x1="390" y1="580" x2="390" y2="632" class="wire"/>
+  <polyline points="605,608 605,632 205,632" class="wire"/>
+  <line x1="390" y1="632" x2="390" y2="660" class="arrow"/>
+  <text x="235" y="392" class="lbl">Нет</text>
+  <text x="398" y="595" class="lbl">Нет</text>
 
-  <!-- Граница цикла (конец) -->
+  <!-- Граница цикла (конец) (1 вход сверху, 1 выход снизу) -> pos = ... -->
   <polygon points="270,660 510,660 510,691 495,706 285,706 270,691" class="shape"/>
   <text x="390" y="683" class="txt">Цикл step</text>
-  <line x1="390" y1="706" x2="390" y2="727" class="line"/>
+  <line x1="390" y1="706" x2="390" y2="727" class="arrow"/>
 
-  <!-- Процесс: pos = ... -->
+  <!-- pos = ... (1 вход сверху, 1 выход снизу) -> Решение 4 -->
   <rect x="270" y="727" width="240" height="44" class="shape"/>
   <text x="390" y="741" class="txt">pos = beginIndex +</text>
   <text x="390" y="757" class="txt">(arr[beginIndex] &lt; elem ? 1 : 0)</text>
-  <line x1="390" y1="771" x2="390" y2="792" class="line"/>
+  <line x1="390" y1="771" x2="390" y2="792" class="arrow"/>
 
-  <!-- Решение 4: pos < arrSize && arr[pos] == elem -->
+  <!-- Решение 4: pos < arrSize && arr[pos] == elem (ромб: 1 вход сверху, 2 выхода: Да влево, Нет вправо) -->
   <polygon points="390,792 510,828 390,864 270,828" class="shape"/>
   <text x="390" y="828" class="txt">pos &lt; arrSize &amp;&amp; arr[pos] == elem</text>
 
-  <!-- Да (влево -> return pos, блок шириной 240px: x=20..260, центр=140) -->
-  <line x1="270" y1="828" x2="140" y2="828" class="line"/>
+  <!-- Да -> Вернуть pos (1 вход сверху, 1 выход снизу) -->
+  <polyline points="270,828 140,828 140,880" class="arrow"/>
   <text x="235" y="820" class="lbl">Да</text>
-  <line x1="140" y1="828" x2="140" y2="875" class="line"/>
-  <rect x="20" y="875" width="240" height="36" class="shape"/>
-  <text x="140" y="893" class="txt">Вернуть pos</text>
-  <line x1="140" y1="911" x2="140" y2="978" class="line"/>
-  <line x1="140" y1="978" x2="270" y2="978" class="line" marker-end="url(#arrow)"/>
+  <rect x="20" y="880" width="240" height="36" class="shape"/>
+  <text x="140" y="898" class="txt">Вернуть pos</text>
 
-  <!-- Нет (вниз -> return -1) -->
-  <line x1="390" y1="864" x2="390" y2="882" class="line"/>
-  <text x="398" y="873" class="lbl">Нет</text>
-  <rect x="270" y="882" width="240" height="36" class="shape"/>
-  <text x="390" y="900" class="txt">Вернуть -1</text>
-  <line x1="390" y1="918" x2="390" y2="957" class="line"/>
+  <!-- Нет (из Решение 4) -> слияние на уровне y=858 в общую вертикаль к Вернуть -1 (1 вход сверху, 1 выход снизу) -->
+  <polyline points="510,828 640,828 640,858" class="wire"/>
+  <text x="530" y="820" class="lbl">Нет</text>
+  <rect x="520" y="880" width="240" height="36" class="shape"/>
+  <text x="640" y="898" class="txt">Вернуть -1</text>
 
-  <!-- Терминатор: Конец -->
+  <!-- Выходы Вернуть pos (x=140) и единственного Вернуть -1 (x=640) сходятся на едином уровне y=938
+       к блоку Конец (1 вход сверху) -->
+  <line x1="140" y1="916" x2="140" y2="938" class="wire"/>
+  <line x1="640" y1="916" x2="640" y2="938" class="wire"/>
+  <line x1="640" y1="938" x2="140" y2="938" class="wire"/>
+  <line x1="390" y1="938" x2="390" y2="957" class="arrow"/>
+
+  <!-- Конец (только 1 вход сверху, без исходящих линий) -->
   <rect x="270" y="957" width="240" height="42" rx="21" ry="21" class="shape"/>
   <text x="390" y="978" class="txt">Конец</text>
 </svg>
