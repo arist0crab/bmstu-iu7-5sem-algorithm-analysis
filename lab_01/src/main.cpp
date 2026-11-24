@@ -29,7 +29,7 @@ int main()
     
     UserInputNForce(N);
     UserInputDiapasonForce(generationSpan);
-    UserInputXForce(x, generationSpan);
+    UserInputXForce(x);
     generateRandomArray(arr, sortedArr, N, generationSpan, x);
 
     while (isRunning)
@@ -130,7 +130,7 @@ void processDataInputOption(int*& arr, int*& sortedArr, size_t &N, int &x, std::
             break;
 
         case 2:
-            UserInputXForce(x, generationSpan);
+            UserInputXForce(x);
             break;
 
         case 3:
@@ -140,11 +140,6 @@ void processDataInputOption(int*& arr, int*& sortedArr, size_t &N, int &x, std::
 
         case 4:
             UserInputArrayForce(arr, sortedArr, N);
-            if (N > 0)
-            {
-                generationSpan.first = sortedArr[0];
-                generationSpan.second = sortedArr[N - 1];
-            }
             break;
         
         default:

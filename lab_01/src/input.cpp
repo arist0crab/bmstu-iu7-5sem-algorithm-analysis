@@ -2,7 +2,7 @@
 
 
 std::expected<int, ParseError> userInputN();
-std::expected<int, ParseError> userInputX(const std::pair<int, int> &generationSpan);
+std::expected<int, ParseError> userInputX();
 std::expected<size_t, ParseError> userInputMenuOption(size_t menuOptionsQuantity);
 std::expected<size_t, ParseError> userInputSpanStartInput();
 std::expected<size_t, ParseError> userInputSpanEndInput();
@@ -14,7 +14,7 @@ void inputNInvitation();
 void inputSpanEndInvatation();
 void inputSpanStartInvatation();
 void inputMenuOptionInvitation();
-void inputXInvitation(const std::pair<int, int> &generationSpan);
+void inputXInvitation();
 void inputArrayElementInvitation(size_t index, size_t arrSize);
 
 void HandleParseError(ParseError error);
@@ -33,13 +33,13 @@ void UserInputNForce(size_t &N)
 }
 
 
-void UserInputXForce(int &X, const std::pair<int, int> &generationSpan)
+void UserInputXForce(int &X)
 {
-    auto x = userInputX(generationSpan);
+    auto x = userInputX();
     while (!x.has_value())
     {
         HandleParseError(x.error());
-        x = userInputX(generationSpan);
+        x = userInputX();
     }
     
     X = x.value();
@@ -124,17 +124,14 @@ void UserInputArrayForce(int*& arr, int*& sortedArr, const size_t arrSize)
 }
 
 
-std::expected<int, ParseError> userInputX(const std::pair<int, int> &generationSpan)
+std::expected<int, ParseError> userInputX()
 {
-    inputXInvitation(generationSpan);
+    inputXInvitation();
 
     auto userInput = intInput();
 
     if (!userInput.has_value())
         return std::unexpected(userInput.error());
-
-    if (userInput.value() < generationSpan.first || userInput.value() > generationSpan.second)
-        return std::unexpected(ParseError::InvalidInputDiapason);
 
     return userInput.value();
 }
@@ -217,9 +214,9 @@ std::expected<int, ParseError> intInput()
 }
 
 
-void inputXInvitation(const std::pair<int, int> &generationSpan)
+void inputXInvitation()
 {
-    std::cout << "Введите значение `X` от " << generationSpan.first << " до " << generationSpan.second << " включительно: ";
+    std::cout << "Введите любое значение `X`: ";
 }
 
 
