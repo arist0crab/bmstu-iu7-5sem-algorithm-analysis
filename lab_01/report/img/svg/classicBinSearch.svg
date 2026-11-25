@@ -1,11 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 1120" width="880" height="1120">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 1070" width="920" height="1070">
   <defs>
-    <!-- Единые стили оформления блоков и соединительных линий -->
+    <!-- Единые стили оформления блоков, комментариев и соединительных линий -->
     <style>
       .shape { fill: #ffffff; stroke: #000000; stroke-width: 1.5; }
+      .comment-line { fill: none; stroke: #000000; stroke-width: 1.2; stroke-dasharray: 4,3; }
+      .comment-bracket { fill: none; stroke: #000000; stroke-width: 1.5; }
       .arrow { fill: none; stroke: #000000; stroke-width: 1.5; marker-end: url(#arrow); }
       .wire { fill: none; stroke: #000000; stroke-width: 1.5; }
       .txt { font-family: "Times New Roman", serif; font-size: 13px; fill: #000000; text-anchor: middle; dominant-baseline: central; }
+      .ctxt { font-family: "Times New Roman", serif; font-size: 12px; fill: #000000; text-anchor: start; dominant-baseline: central; }
       .lbl { font-family: "Times New Roman", serif; font-size: 12px; fill: #000000; }
     </style>
     <!-- Наконечник стрелки, ориентированный вдоль направления сегмента -->
@@ -17,104 +20,103 @@
   <!-- Белый фон холста для корректного рендеринга в документах -->
   <rect width="100%" height="100%" fill="#ffffff"/>
 
-  <!-- Начало (1 выход снизу) -> Вход (1 вход сверху, 1 выход снизу) -->
+  <!-- Начало (1 выход снизу) -> iterQuantity = 0 (1 вход сверху, 1 выход снизу) -->
   <rect x="190" y="20" width="240" height="40" rx="20" ry="20" class="shape"/>
   <text x="310" y="40" class="txt">Начало</text>
-  <line x1="310" y1="60" x2="310" y2="86" class="arrow"/>
+  <line x1="310" y1="60" x2="310" y2="96" class="arrow"/>
 
-  <!-- Вход параметров (прямоугольник: 1 вход сверху, 1 выход снизу) -->
-  <rect x="180" y="86" width="260" height="46" class="shape"/>
-  <text x="310" y="101" class="txt">Вход: arr, arrSize, elem,</text>
-  <text x="310" y="118" class="txt">iterQuantity (по ссылке)</text>
-  <line x1="310" y1="132" x2="310" y2="158" class="arrow"/>
+  <!-- Комментарий к блоку Начало: описание аргументов функции (ГОСТ 19.701-90) -->
+  <line x1="430" y1="40" x2="480" y2="40" class="comment-line"/>
+  <polyline points="494,26 480,26 480,54 494,54" class="comment-bracket"/>
+  <text x="502" y="40" class="ctxt">Аргументы: arr, arrSize, elem, iterQuantity</text>
 
   <!-- iterQuantity = 0 (1 вход сверху, 1 выход снизу) -->
-  <rect x="190" y="158" width="240" height="36" class="shape"/>
-  <text x="310" y="176" class="txt">iterQuantity = 0</text>
-  <line x1="310" y1="194" x2="310" y2="220" class="arrow"/>
+  <rect x="190" y="96" width="240" height="36" class="shape"/>
+  <text x="310" y="114" class="txt">iterQuantity = 0</text>
+  <line x1="310" y1="132" x2="310" y2="158" class="arrow"/>
 
   <!-- start_ind = 0 (1 вход сверху, 1 выход снизу) -->
-  <rect x="190" y="220" width="240" height="36" class="shape"/>
-  <text x="310" y="238" class="txt">start_ind = 0</text>
-  <line x1="310" y1="256" x2="310" y2="282" class="arrow"/>
+  <rect x="190" y="158" width="240" height="36" class="shape"/>
+  <text x="310" y="176" class="txt">start_ind = 0</text>
+  <line x1="310" y1="194" x2="310" y2="220" class="arrow"/>
 
   <!-- end_ind = arrSize - 1 (1 вход сверху, 1 выход снизу) -->
-  <rect x="190" y="282" width="240" height="36" class="shape"/>
-  <text x="310" y="300" class="txt">end_ind = arrSize - 1</text>
-  <line x1="310" y1="318" x2="310" y2="344" class="arrow"/>
+  <rect x="190" y="220" width="240" height="36" class="shape"/>
+  <text x="310" y="238" class="txt">end_ind = arrSize - 1</text>
+  <line x1="310" y1="256" x2="310" y2="282" class="arrow"/>
 
   <!-- Заголовок цикла while (1 вход сверху, 1 выход снизу) -->
-  <polygon points="205,344 415,344 430,358 430,388 190,388 190,358" class="shape"/>
-  <text x="310" y="358" class="txt">Цикл while</text>
-  <text x="310" y="375" class="txt">start_ind &lt;= end_ind</text>
-  <line x1="310" y1="388" x2="310" y2="414" class="arrow"/>
+  <polygon points="205,282 415,282 430,296 430,326 190,326 190,296" class="shape"/>
+  <text x="310" y="296" class="txt">Цикл while</text>
+  <text x="310" y="313" class="txt">start_ind &lt;= end_ind</text>
+  <line x1="310" y1="326" x2="310" y2="352" class="arrow"/>
 
   <!-- iterQuantity++ (1 вход сверху, 1 выход снизу) -->
-  <rect x="190" y="414" width="240" height="36" class="shape"/>
-  <text x="310" y="432" class="txt">iterQuantity++</text>
-  <line x1="310" y1="450" x2="310" y2="476" class="arrow"/>
+  <rect x="190" y="352" width="240" height="36" class="shape"/>
+  <text x="310" y="370" class="txt">iterQuantity++</text>
+  <line x1="310" y1="388" x2="310" y2="414" class="arrow"/>
 
   <!-- Вычисление cur_ind (1 вход сверху, 1 выход снизу) -->
-  <rect x="190" y="476" width="240" height="56" class="shape"/>
-  <text x="310" y="490" class="txt">cur_ind =</text>
-  <text x="310" y="506" class="txt">(end_ind - start_ind) / 2</text>
-  <text x="310" y="522" class="txt">+ start_ind</text>
-  <line x1="310" y1="532" x2="310" y2="558" class="arrow"/>
+  <rect x="190" y="414" width="240" height="56" class="shape"/>
+  <text x="310" y="428" class="txt">cur_ind =</text>
+  <text x="310" y="444" class="txt">(end_ind - start_ind) / 2</text>
+  <text x="310" y="460" class="txt">+ start_ind</text>
+  <line x1="310" y1="470" x2="310" y2="496" class="arrow"/>
 
   <!-- Условие 1: arr[cur_ind] < elem ? (ромб: 1 вход сверху, 2 выхода: Да вправо, Нет вниз) -->
-  <polygon points="310,558 430,594 310,630 190,594" class="shape"/>
-  <text x="310" y="588" class="txt">arr[cur_ind] &lt;</text>
-  <text x="310" y="603" class="txt">elem ?</text>
+  <polygon points="310,496 430,532 310,568 190,532" class="shape"/>
+  <text x="310" y="526" class="txt">arr[cur_ind] &lt;</text>
+  <text x="310" y="541" class="txt">elem ?</text>
 
   <!-- Ветка Да -> start_ind = cur_ind + 1 (правее, x=710) -->
-  <polyline points="430,594 710,594 710,694" class="arrow"/>
-  <text x="448" y="586" class="lbl">Да</text>
-  <rect x="595" y="694" width="230" height="38" class="shape"/>
-  <text x="710" y="713" class="txt">start_ind = cur_ind + 1</text>
+  <polyline points="430,532 710,532 710,632" class="arrow"/>
+  <text x="448" y="524" class="lbl">Да</text>
+  <rect x="595" y="632" width="230" height="38" class="shape"/>
+  <text x="710" y="651" class="txt">start_ind = cur_ind + 1</text>
 
   <!-- Ветка Нет -> Условие 2: arr[cur_ind] > elem ? (ромб: 1 вход сверху, 2 выхода: Да вправо, Нет вниз) -->
-  <line x1="310" y1="630" x2="310" y2="662" class="arrow"/>
-  <text x="290" y="646" class="lbl" text-anchor="end">Нет</text>
-  <polygon points="310,662 430,698 310,734 190,698" class="shape"/>
-  <text x="310" y="692" class="txt">arr[cur_ind] &gt;</text>
-  <text x="310" y="707" class="txt">elem ?</text>
+  <line x1="310" y1="568" x2="310" y2="600" class="arrow"/>
+  <text x="290" y="584" class="lbl" text-anchor="end">Нет</text>
+  <polygon points="310,600 430,636 310,672 190,636" class="shape"/>
+  <text x="310" y="630" class="txt">arr[cur_ind] &gt;</text>
+  <text x="310" y="645" class="txt">elem ?</text>
 
   <!-- Ветка Да -> end_ind = cur_ind - 1 (правее, x=450) -->
-  <polyline points="430,698 450,698 450,746" class="arrow"/>
-  <text x="442" y="690" class="lbl">Да</text>
-  <rect x="335" y="746" width="230" height="38" class="shape"/>
-  <text x="450" y="765" class="txt">end_ind = cur_ind - 1</text>
+  <polyline points="430,636 450,636 450,684" class="arrow"/>
+  <text x="442" y="628" class="lbl">Да</text>
+  <rect x="335" y="684" width="230" height="38" class="shape"/>
+  <text x="450" y="703" class="txt">end_ind = cur_ind - 1</text>
 
-  <!-- Выходы end_ind (x=450, y=784) и start_ind (x=710, y=732) сходятся на едином уровне y=804
+  <!-- Выходы end_ind (x=450, y=722) и start_ind (x=710, y=670) сходятся на едином уровне y=742
        в общую стрелку к блоку Конец цикла while (x=580) -->
-  <line x1="450" y1="784" x2="450" y2="804" class="wire"/>
-  <line x1="710" y1="732" x2="710" y2="804" class="wire"/>
-  <line x1="450" y1="804" x2="710" y2="804" class="wire"/>
-  <line x1="580" y1="804" x2="580" y2="824" class="arrow"/>
+  <line x1="450" y1="722" x2="450" y2="742" class="wire"/>
+  <line x1="710" y1="670" x2="710" y2="742" class="wire"/>
+  <line x1="450" y1="742" x2="710" y2="742" class="wire"/>
+  <line x1="580" y1="742" x2="580" y2="762" class="arrow"/>
 
   <!-- Конец цикла while (x=580, 1 вход сверху, 1 выход снизу) -> Возврат: -1 -->
-  <rect x="465" y="824" width="230" height="38" class="shape"/>
-  <text x="580" y="843" class="txt">Конец цикла while</text>
-  <line x1="580" y1="862" x2="580" y2="892" class="arrow"/>
+  <polygon points="465,762 695,762 695,786 680,800 480,800 465,786" class="shape"/>
+  <text x="580" y="781" class="txt">Конец цикла while</text>
+  <line x1="580" y1="800" x2="580" y2="830" class="arrow"/>
 
   <!-- Возврат: -1 (x=580, прямоугольник: 1 вход сверху, 1 выход снизу) -->
-  <rect x="465" y="892" width="230" height="38" class="shape"/>
-  <text x="580" y="911" class="txt">Возврат: -1</text>
+  <rect x="465" y="830" width="230" height="38" class="shape"/>
+  <text x="580" y="849" class="txt">Возврат: -1</text>
 
   <!-- Ветка Нет (из Условия 2) -> Возврат: cur_ind (прямоугольник: 1 вход сверху, 1 выход снизу) -->
-  <polyline points="310,734 310,892" class="arrow"/>
-  <text x="290" y="750" class="lbl" text-anchor="end">Нет</text>
-  <rect x="195" y="892" width="230" height="38" class="shape"/>
-  <text x="310" y="911" class="txt">Возврат: cur_ind</text>
+  <polyline points="310,672 310,830" class="arrow"/>
+  <text x="290" y="688" class="lbl" text-anchor="end">Нет</text>
+  <rect x="195" y="830" width="230" height="38" class="shape"/>
+  <text x="310" y="849" class="txt">Возврат: cur_ind</text>
 
-  <!-- Выходы Возврат: cur_ind (x=310, y=930) и Возврат: -1 (x=580, y=930) сходятся на едином уровне y=960
+  <!-- Выходы Возврат: cur_ind (x=310, y=868) и Возврат: -1 (x=580, y=868) сходятся на едином уровне y=898
        в общую стрелку к блоку Конец (x=445, 1 вход сверху) -->
-  <line x1="310" y1="930" x2="310" y2="960" class="wire"/>
-  <line x1="580" y1="930" x2="580" y2="960" class="wire"/>
-  <line x1="310" y1="960" x2="580" y2="960" class="wire"/>
-  <line x1="445" y1="960" x2="445" y2="985" class="arrow"/>
+  <line x1="310" y1="868" x2="310" y2="898" class="wire"/>
+  <line x1="580" y1="868" x2="580" y2="898" class="wire"/>
+  <line x1="310" y1="898" x2="580" y2="898" class="wire"/>
+  <line x1="445" y1="898" x2="445" y2="923" class="arrow"/>
 
   <!-- Конец (1 вход сверху, без исходящих линий) -->
-  <rect x="325" y="985" width="240" height="40" rx="20" ry="20" class="shape"/>
-  <text x="445" y="1005" class="txt">Конец</text>
+  <rect x="325" y="923" width="240" height="40" rx="20" ry="20" class="shape"/>
+  <text x="445" y="943" class="txt">Конец</text>
 </svg>
