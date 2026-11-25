@@ -84,7 +84,7 @@ void processMenuOption(bool &isRunning, size_t &N, int*& arr, int*& sortedArr, i
             break;
 
         case 7:
-            processResultTableOutput(arr, sortedArr, N, x);
+            processResultTableOutput(sortedArr, sortedArr, N, x);
             break;
         
         default:
