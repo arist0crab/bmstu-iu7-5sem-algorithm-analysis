@@ -1,10 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 820" width="920" height="820">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 880" width="960" height="880">
   <defs>
     <style>
       .shape { fill: #ffffff; stroke: #000000; stroke-width: 1.5; }
+      .comment-line { fill: none; stroke: #000000; stroke-width: 1.2; stroke-dasharray: 4,3; }
+      .comment-bracket { fill: none; stroke: #000000; stroke-width: 1.5; }
       .arrow { fill: none; stroke: #000000; stroke-width: 1.5; marker-end: url(#arrow); }
       .wire { fill: none; stroke: #000000; stroke-width: 1.5; }
       .txt { font-family: "Times New Roman", serif; font-size: 13px; fill: #000000; text-anchor: middle; dominant-baseline: central; }
+      .ctxt { font-family: "Times New Roman", serif; font-size: 12px; fill: #000000; text-anchor: start; dominant-baseline: central; }
       .lbl { font-family: "Times New Roman", serif; font-size: 12px; fill: #000000; }
     </style>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
@@ -14,80 +17,95 @@
 
   <rect width="100%" height="100%" fill="#ffffff"/>
 
-  <!-- Начало (только 1 выход снизу) -> recursionDepth++ (1 вход сверху, 1 выход снизу) -->
-  <rect x="320" y="20" width="240" height="42" rx="21" ry="21" class="shape"/>
+  <!-- Блок Начало и комментарий аргументов -->
+  <rect x="310" y="20" width="260" height="42" rx="21" ry="21" class="shape"/>
   <text x="440" y="41" class="txt">Начало</text>
   <line x1="440" y1="62" x2="440" y2="85" class="arrow"/>
 
-  <rect x="320" y="85" width="240" height="38" class="shape"/>
-  <text x="440" y="104" class="txt">recursionDepth++</text>
-  <line x1="440" y1="123" x2="440" y2="148" class="arrow"/>
+  <line x1="570" y1="41" x2="615" y2="41" class="comment-line"/>
+  <polyline points="629,25 615,25 615,57 629,57" class="comment-bracket"/>
+  <text x="637" y="34" class="ctxt">Аргументы: массив, искомое значение,</text>
+  <text x="637" y="50" class="ctxt">левая и правая границы, глубина и счётчик</text>
 
-  <!-- Решение 1: leftIndex > rightIndex (ромб: 1 вход сверху, 2 выхода: Да влево, Нет вниз) -->
-  <polygon points="440,148 560,184 440,220 320,184" class="shape"/>
-  <text x="440" y="184" class="txt">leftIndex &gt; rightIndex</text>
+  <!-- Увеличение глубины рекурсии -->
+  <rect x="310" y="85" width="260" height="40" class="shape"/>
+  <text x="440" y="105" class="txt">Увеличить глубину рекурсии на 1</text>
+  <line x1="440" y1="125" x2="440" y2="150" class="arrow"/>
 
-  <!-- Ветка Да -> Вернуть -1 (1 вход сверху, 1 выход снизу) -->
-  <polyline points="320,184 140,184 140,405" class="arrow"/>
-  <text x="285" y="176" class="lbl">Да</text>
-  <rect x="20" y="405" width="240" height="38" class="shape"/>
-  <text x="140" y="424" class="txt">Вернуть -1</text>
+  <!-- Условный оператор 1: проверка вырожденности отрезка -->
+  <polygon points="440,150 570,188 440,226 310,188" class="shape"/>
+  <text x="440" y="180" class="txt">Левая граница больше</text>
+  <text x="440" y="197" class="txt">правой границы?</text>
 
-  <!-- Ветка Нет -> middleIndex (1 вход сверху, 1 выход снизу) -->
-  <line x1="440" y1="220" x2="440" y2="248" class="arrow"/>
-  <text x="448" y="234" class="lbl">Нет</text>
-  <rect x="320" y="248" width="240" height="46" class="shape"/>
-  <text x="440" y="263" class="txt">middleIndex = leftIndex +</text>
-  <text x="440" y="279" class="txt">(rightIndex - leftIndex) / 2</text>
-  <line x1="440" y1="294" x2="440" y2="320" class="arrow"/>
+  <!-- Ветка Да (условного оператора 1) -> вернуть -1 -->
+  <polyline points="310,188 125,188 125,415" class="arrow"/>
+  <text x="275" y="180" class="lbl">Да</text>
+  <rect x="15" y="415" width="220" height="40" class="shape"/>
+  <text x="125" y="435" class="txt">Вернуть −1</text>
 
-  <!-- Решение 2: arr[middleIndex] == elem (ромб: 1 вход сверху, 2 выхода: Да вправо, Нет вниз) -->
-  <polygon points="440,320 560,356 440,392 320,356" class="shape"/>
-  <text x="440" y="356" class="txt">arr[middleIndex] == elem</text>
+  <!-- Ветка Нет (условного оператора 1) -> вычисление индекса середины -->
+  <line x1="440" y1="226" x2="440" y2="252" class="arrow"/>
+  <text x="448" y="239" class="lbl">Нет</text>
+  <rect x="310" y="252" width="260" height="48" class="shape"/>
+  <text x="440" y="268" class="txt">Вычислить индекс</text>
+  <text x="440" y="285" class="txt">середины текущего отрезка</text>
+  <line x1="440" y1="300" x2="440" y2="326" class="arrow"/>
 
-  <!-- Ветка Да -> Вернуть middleIndex (1 вход сверху, 1 выход снизу) -->
-  <polyline points="560,356 780,356 780,405" class="arrow"/>
-  <text x="580" y="348" class="lbl">Да</text>
-  <rect x="660" y="405" width="240" height="38" class="shape"/>
-  <text x="780" y="424" class="txt">Вернуть middleIndex</text>
+  <!-- Условный оператор 2: проверка совпадения среднего элемента с искомым -->
+  <polygon points="440,326 570,364 440,402 310,364" class="shape"/>
+  <text x="440" y="356" class="txt">Средний элемент равен</text>
+  <text x="440" y="373" class="txt">искомому значению?</text>
 
-  <!-- Ветка Нет -> Решение 3: arr[middleIndex] > elem (ромб: 1 вход сверху, 2 выхода: Да влево, Нет вправо) -->
-  <line x1="440" y1="392" x2="440" y2="422" class="arrow"/>
-  <text x="448" y="406" class="lbl">Нет</text>
-  <polygon points="440,422 560,458 440,494 320,458" class="shape"/>
-  <text x="440" y="458" class="txt">arr[middleIndex] &gt; elem</text>
+  <!-- Ветка Да (условного оператора 2) -> вернуть индекс середины -->
+  <polyline points="570,364 815,364 815,415" class="arrow"/>
+  <text x="590" y="356" class="lbl">Да</text>
+  <rect x="705" y="415" width="220" height="40" class="shape"/>
+  <text x="815" y="435" class="txt">Вернуть индекс середины</text>
 
-  <!-- Ветка Да -> левый предопределённый процесс (1 вход сверху, 1 выход снизу) -->
-  <polyline points="320,458 290,458 290,530" class="arrow"/>
-  <text x="298" y="450" class="lbl">Да</text>
-  <rect x="170" y="530" width="240" height="72" class="shape"/>
-  <line x1="182" y1="530" x2="182" y2="602" stroke="#000000" stroke-width="1.5"/>
-  <line x1="398" y1="530" x2="398" y2="602" stroke="#000000" stroke-width="1.5"/>
-  <text x="290" y="549" class="txt">Вернуть</text>
-  <text x="290" y="566" class="txt">binRecursionIteration(...,</text>
-  <text x="290" y="583" class="txt">leftIndex, middleIndex - 1)</text>
+  <!-- Ветка Нет (условного оператора 2) -> сравнение среднего элемента с искомым -->
+  <line x1="440" y1="402" x2="440" y2="432" class="arrow"/>
+  <text x="448" y="417" class="lbl">Нет</text>
 
-  <!-- Ветка Нет -> правый предопределённый процесс (1 вход сверху, 1 выход снизу) -->
-  <polyline points="560,458 590,458 590,530" class="arrow"/>
-  <text x="570" y="450" class="lbl">Нет</text>
-  <rect x="470" y="530" width="240" height="72" class="shape"/>
-  <line x1="482" y1="530" x2="482" y2="602" stroke="#000000" stroke-width="1.5"/>
-  <line x1="698" y1="530" x2="698" y2="602" stroke="#000000" stroke-width="1.5"/>
-  <text x="590" y="549" class="txt">Вернуть</text>
-  <text x="590" y="566" class="txt">binRecursionIteration(...,</text>
-  <text x="590" y="583" class="txt">middleIndex + 1, rightIndex)</text>
+  <!-- Условный оператор 3: выбор половины отрезка -->
+  <polygon points="440,432 570,470 440,508 310,470" class="shape"/>
+  <text x="440" y="462" class="txt">Средний элемент больше</text>
+  <text x="440" y="479" class="txt">искомого значения?</text>
 
-  <!-- Все 4 ветки (Вернуть -1 на x=140, левый вызов на x=290, правый вызов на x=590,
-       Вернуть middleIndex на x=780) приходят в одну общую горизонтальную линию y=700,
-       от которой идёт одна вертикальная стрелка вниз в верхнюю границу блока Конец (y=734) -->
-  <line x1="140" y1="443" x2="140" y2="700" class="wire"/>
-  <line x1="290" y1="602" x2="290" y2="700" class="wire"/>
-  <line x1="590" y1="602" x2="590" y2="700" class="wire"/>
-  <line x1="780" y1="443" x2="780" y2="700" class="wire"/>
-  <line x1="140" y1="700" x2="780" y2="700" class="wire"/>
-  <line x1="440" y1="700" x2="440" y2="734" class="arrow"/>
+  <!-- Ветка Да (условного оператора 3) -> рекурсивный поиск в левой половине -->
+  <polyline points="310,470 280,470 280,542" class="arrow"/>
+  <text x="288" y="462" class="lbl">Да</text>
+  <rect x="160" y="542" width="240" height="76" class="shape"/>
+  <line x1="172" y1="542" x2="172" y2="618" stroke="#000000" stroke-width="1.5"/>
+  <line x1="388" y1="542" x2="388" y2="618" stroke="#000000" stroke-width="1.5"/>
+  <text x="280" y="562" class="txt">Вернуть результат</text>
+  <text x="280" y="580" class="txt">рекурсивного поиска</text>
+  <text x="280" y="598" class="txt">в левой половине отрезка</text>
 
-  <!-- Конец (только 1 вход сверху, без исходящих линий) -->
-  <rect x="320" y="734" width="240" height="42" rx="21" ry="21" class="shape"/>
-  <text x="440" y="755" class="txt">Конец</text>
+  <!-- Ветка Нет (условного оператора 3) -> рекурсивный поиск в правой половине -->
+  <polyline points="570,470 600,470 600,542" class="arrow"/>
+  <text x="580" y="462" class="lbl">Нет</text>
+  <rect x="480" y="542" width="240" height="76" class="shape"/>
+  <line x1="492" y1="542" x2="492" y2="618" stroke="#000000" stroke-width="1.5"/>
+  <line x1="708" y1="542" x2="708" y2="618" stroke="#000000" stroke-width="1.5"/>
+  <text x="600" y="562" class="txt">Вернуть результат</text>
+  <text x="600" y="580" class="txt">рекурсивного поиска</text>
+  <text x="600" y="598" class="txt">в правой половине отрезка</text>
+
+  <!-- Точка слияния ветвей условного оператора 3 -->
+  <line x1="280" y1="618" x2="280" y2="660" class="wire"/>
+  <line x1="600" y1="618" x2="600" y2="660" class="wire"/>
+  <line x1="280" y1="660" x2="600" y2="660" class="wire"/>
+
+  <!-- Точка слияния ветвей условного оператора 2 -->
+  <line x1="440" y1="660" x2="440" y2="700" class="wire"/>
+  <polyline points="815,455 815,700 440,700" class="wire"/>
+
+  <!-- Точка слияния ветвей условного оператора 1 -> продолжение к блоку Конец -->
+  <line x1="627" y1="700" x2="627" y2="742" class="wire"/>
+  <polyline points="125,455 125,742 627,742" class="wire"/>
+  <line x1="440" y1="742" x2="440" y2="782" class="arrow"/>
+
+  <!-- Блок Конец -->
+  <rect x="310" y="782" width="260" height="42" rx="21" ry="21" class="shape"/>
+  <text x="440" y="803" class="txt">Конец</text>
 </svg>
