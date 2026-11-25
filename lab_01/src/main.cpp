@@ -99,12 +99,13 @@ void processResultTableOutput(const int *arr, const int* sortedArr, const size_t
     size_t linearBaseIterationsQuantity = 0;
     size_t binBaseIterationsQuantity = 0;
     size_t binImprovedIterationsQuantity = 0;
+    size_t binRecursionRecursionsQuantity = 0;
     size_t binRecursionIterationsQuantity = 0;
 
     ssize_t linearBaseIndex = LinearBaseSearch(arr, N, x, linearBaseIterationsQuantity);
     ssize_t binBaseIndex = BinBaseSearch(sortedArr, N, x, binBaseIterationsQuantity);
     ssize_t binImprovedIndex = BinImprovedSearch(sortedArr, N, x, binImprovedIterationsQuantity);
-    ssize_t binRecursionIndex = BinRecursionSearch(sortedArr, N, x, binRecursionIterationsQuantity);
+    ssize_t binRecursionIndex = BinRecursionSearch(sortedArr, N, x, binRecursionRecursionsQuantity, binRecursionIterationsQuantity);
 
     size_t algosIterationsQuantity[] = { linearBaseIterationsQuantity, binBaseIterationsQuantity, binImprovedIterationsQuantity, binRecursionIterationsQuantity };
     ssize_t algosResultsIndexes[] = { linearBaseIndex, binBaseIndex, binImprovedIndex, binRecursionIndex };
